@@ -6,26 +6,31 @@
     * Player earns points by collecting coins.
     * Coins randomly appear on screen and do not move.
     * Coins look like gold coins.
+    
 ![alt text](images/coin.png "Coin")
   2. Money Bag
     * Player will be temporarily unaffected by every item except for coins.
     * Money bags randomly move around screen.
     * Money bags look like sacks of money.
+    
 ![alt text](images/money-bag.png "Money Bag")
   3. Alien
     * Alien kills player when they collide.
     * Aliens move in a straight, horizontal line.
     * Aliens look like an evil looking alien, along the lines of the picture below.
+    
 ![alt text](images/alien.jpg "Alien")
   4. Doctor
     * Player gains a life after colliding with doctor.
     * Doctor bounces off top and bottom of screen, so he always appears to be moving diagonally.
     * Doctor looks like a doctor in a space suit. The image below does not have a space suit, but the doctor will.
+
 ![alt text](images/doctor.jpg "Doctor")
   5. Space Turtle
     * Slows down every part of game except for the player when hit.
     * Space turtle crawls along the bottom of the screen.
     * Space turtle looks like a turtle in a space suit.
+
 ![alt text](images/space_turtle.gif "Space Turtle")
 
 ###Game Play
@@ -51,7 +56,7 @@ Players start the game with three lives. After colliding with the Alien, the pla
   * Help box and label.
     - Displays instructions and what each of the five items do.
   * Game output box
-    -Displays the user's name, number of lives, points, and errors.
+    - Displays the user's name, number of lives, points, and errors.
   * Game play scene
     - Game is actually implemented, played, and displayed here. This is under all the previous items.
  ![alt text](images/layout.JPG "Layout")
