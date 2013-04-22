@@ -26,7 +26,7 @@
     * Slows down every part of game except for the player when hit.
     * Space turtle crawls along the bottom of the screen.
     * Space turtle looks like a turtle in a space suit.
-![alt text](space_turtle.gif "Space Turtle")
+![alt text](images/space_turtle.gif "Space Turtle")
 
 ###Game Play
 Player uses keyboard to play game. The up arrow moves the player up. The down arrow moves the player down. The player will use a combination of mouse and keyboard inputs to perform actions such as starting the game and entering a name.
@@ -54,7 +54,8 @@ Players start the game with three lives. After colliding with the Alien, the pla
     -Displays the user's name, number of lives, points, and errors.
   * Game play scene
     - Game is actually implemented, played, and displayed here. This is under all the previous items.
-    
+ ![alt text](iamges/layout.jpg "Layout")
+ 
     
     
 
