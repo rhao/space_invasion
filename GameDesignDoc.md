@@ -54,7 +54,7 @@ Players start the game with three lives. After colliding with the Alien, the pla
     -Displays the user's name, number of lives, points, and errors.
   * Game play scene
     - Game is actually implemented, played, and displayed here. This is under all the previous items.
- ![alt text](iamges/layout.jpg "Layout")
+ ![alt text](iamges/layout.JPG "Layout")
  
     
     
