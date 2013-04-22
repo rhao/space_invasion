@@ -100,27 +100,27 @@ Images are added inline by using the following syntax
     * Player earns points by collecting coins.
     * Coins randomly appear on screen and do not move.
     * Coins look like gold coins.
-![alt text](http://thoseguys.tv/wp-content/uploads/2012/08/yellow-coin.png "Coin")
+![alt text](images/coin.png "Coin")
   2. Money Bag
     * Player will be temporarily unaffected by every item except for coins.
     * Money bags randomly move around screen.
     * Money bags look like sacks of money.
-![alt text](http://www.clker.com/cliparts/h/D/A/4/R/d/money-bag-hi.png "Money Bag")
+![alt text](images/money-bag.png "Money Bag")
   3. Alien
     * Alien kills player when they collide.
     * Aliens move in a straight, horizontal line.
     * Aliens look like an evil looking alien, along the lines of the picture below.
-![alt text](http://image.shutterstock.com/display_pic_with_logo/265489/107962304/stock-vector-evil-retro-cartoon-brain-alien-vector-illustration-with-simple-gradients-all-in-a-single-layer-107962304.jpg "Alien")
+![alt text](images/alien.jpg "Alien")
   4. Doctor
     * Player gains a life after colliding with doctor.
     * Doctor bounces off top and bottom of screen, so he always appears to be moving diagonally.
     * Doctor looks like a doctor in a space suit. The image below does not have a space suit, but the doctor will.
-![alt text](http://2.bp.blogspot.com/_AcBUSVxs82w/SOTfVnqhCxI/AAAAAAAAKMs/4eQrFKEjGqw/s400/doctor.jpg "Doctor")
+![alt text](images/doctor.jpg "Doctor")
   5. Space Turtle
     * Slows down every part of game except for the player when hit.
     * Space turtle crawls along the bottom of the screen.
     * Space turtle looks like a turtle in a space suit.
-![alt text](http://www.albinokraken.com/wp-content/uploads/2011/03/turtle_in_space.gif "Space Turtle")
+![alt text](space_turtle.gif "Space Turtle")
 
 ###Game Play
 Player uses keyboard to play game. The up arrow moves the player up. The down arrow moves the player down. The player will use a combination of mouse and keyboard inputs to perform actions such as starting the game and entering a name.
