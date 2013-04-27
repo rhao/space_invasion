@@ -1,5 +1,4 @@
 #include "mainwindow.h"
-#include <iostream>
 #include <cmath>
 
 /**
@@ -9,6 +8,27 @@
  */
 void MainWindow::handleTimer()
 {
+}
+
+/**
+ * Function is called every time a tile is clicked.
+ *
+ * @param e Mouse event
+ * @return nothing
+ */
+void MainWindow::keyPressEvent(QKeyEvent *e)
+{
+	std::cout<<"key";
+	if(e->key() == Qt::Key_Q)
+	{
+		std::cout<<"Up\n";
+		//p->moveUp();
+	}
+	else if(e->key() == Qt::Key_Down)
+	{
+		std::cout<<"Down\n";
+		//p->moveDown();
+	}
 }
 
 /**
@@ -150,14 +170,7 @@ MainWindow::MainWindow()
 	outputLayout->addWidget(livesLine);
 	outputLayout->addWidget(pointsLine);
 	layout->addRow(outputLayout);
-	
-	/**
-	popup = new QDialog();
-	popupClose = new QPushButton();
-	popup->setWindowTitle("Name Popup");
-	**/
-	
-	
+
 	view->setLayout(layout);
 	window->setLayout(layout);
 	window->setFixedSize(WINDOW_MAX_X-3, WINDOW_MAX_Y-3);
@@ -166,6 +179,17 @@ MainWindow::MainWindow()
 	scene->addWidget(window);
 	view->setFixedSize( WINDOW_MAX_X, WINDOW_MAX_Y);
 	view->setWindowTitle( "Space Invasion");
+	
+	playerImage = new QPixmap("images/doctor.jpg");
+	p->setPos(300, 300);
+	p = new Player(this, playerImage);
+	
+	scene->addItem(p);
+	
+	
+	
+	
+	
 
 	//This is how we do animation. We use a timer with an interval of 5 milliseconds
 	//We connect the signal from the timer - the timeout() function to a function
@@ -179,6 +203,8 @@ MainWindow::MainWindow()
 	connect(start, SIGNAL(clicked()), this, SLOT(callPopup()));
 	connect(popupStart, SIGNAL(clicked()), this, SLOT(startGame()));
 	connect(popupCancel, SIGNAL(clicked()), this, SLOT(cancelPopup()));
+	
+	setFocus();
 }
 
 /**

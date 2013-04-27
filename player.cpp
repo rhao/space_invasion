@@ -7,20 +7,10 @@
  * @param w Pointer to the mainwindow
  * @return nothing
  */
-Player::Player(MainWindow *w)
+Player::Player(MainWindow *w, QPixmap *p) : QGraphicsPixmapItem(*p)
 {
 	window = w;
 	x = 80;
-}
-
-/**
- * Function is called every time a tile is clicked.
- *
- * @param e Mouse event
- * @return nothing
- */
-void Player::mousePressEvent(QGraphicsSceneMouseEvent *e)
-{
 }
 
 /**
@@ -70,18 +60,14 @@ int Player::getV()
 	return v;
 }
 
-void Player::move(bool dir)
+void Player::moveUp()
 {
-	//move up
-	if(dir == 0)
-	{
-		y += v;
-	}
-	//move down
-	else
-	{
-		y -= v;
-	}
+	y += v;
+}
+
+void Player::moveDown()
+{
+	y -=v;
 }
 
 /**

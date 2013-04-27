@@ -3,16 +3,17 @@
 
 class MainWindow;
 
-#include <QGraphicsSceneMouseEvent>
+#include <QKeyEvent>
+#include <QGraphicsPixmapItem>
+#include <QPixmap>
 
-class Player
+class Player : public QGraphicsPixmapItem
 {
 	public:
-	Player(MainWindow*);
+	Player(MainWindow*, QPixmap *);
 	
-	void mousePressEvent(QGraphicsSceneMouseEvent *e);
-	
-	void move(bool dir);
+	void moveUp();
+	void moveDown();
 	void setY(int y_);
 	void setV(int v_);
 	
