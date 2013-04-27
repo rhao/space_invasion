@@ -127,6 +127,13 @@ MainWindow::MainWindow()
 	view->setAlignment(Qt::AlignLeft | Qt::AlignTop);
 	scene->addWidget(window);
 	view->setFixedSize( WINDOW_MAX_X, WINDOW_MAX_Y);
+	
+	qreal _w = WINDOW_MAX_X;
+	qreal _h = WINDOW_MAX_Y;
+	qreal _x = 0;
+	qreal _y = 0;
+	scene->setSceneRect(_x, _y, _w, _h);
+	//scene->setFixedSize(WINDOW_MAX_X, WINDOW_MAX_Y);
 	view->setWindowTitle( "Space Invasion");
 	
 
