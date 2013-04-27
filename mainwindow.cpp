@@ -41,34 +41,16 @@ void MainWindow::startGame()
 		gameStarted = true;
 		nameLine->setText(userName);
 		userNameLine->setText("");
+		errors->setText("");
 		livesLine->setText("3");
 		pointsLine->setText("0");
 		popupView->close();
 		userName = userNameLine->text();
-		if(errorsExists)
-		{
-			//delete popupWindow;
-			popupWindow = new QWidget();
-			popupLayout->addItem(h1);
-			popupLayout->addItem(h2);
-			popupView->setGeometry(WINDOW_MAX_X/2 - 70, WINDOW_MAX_Y/2, 300, 100);
-			popupWindow->setGeometry(0, 0, 300 -3, 100 -3);
-			
-		}
 	}
 	else
 	{
-		if(!errorsExists)
-		{
-			errorsExists = true;
-			errors = new QLineEdit();
-			errors->setText("Enter a name!");
-			errors->setReadOnly(true);
-			popupLayout->addWidget(errors);
-			popupView->setGeometry(WINDOW_MAX_X/2 - 70, WINDOW_MAX_Y/2, 300, 150);
-			popupWindow->setGeometry(0, 0, 300 -3, 150 -3);
-		}
-		
+		errorsExists = true;
+		errors->setText("Enter a name!");
 	}
 }
 
@@ -80,6 +62,7 @@ void MainWindow::callPopup()
 void MainWindow::cancelPopup()
 {
 	userNameLine->setText("");
+	errors->setText("");
 	popupView->close();
 }
 
@@ -100,7 +83,8 @@ MainWindow::MainWindow()
 	popupView = new QGraphicsView(popupScene);
 	popupLayout = new QFormLayout();
 	popupWindow = new QWidget();
-	popupView->setGeometry(WINDOW_MAX_X/2 - 70, WINDOW_MAX_Y/2, 300, 100);
+	popupView->setAlignment(Qt::AlignLeft | Qt::AlignTop);
+	popupView->setGeometry(WINDOW_MAX_X/2 - 80, WINDOW_MAX_Y/2, 300, 125);
 	popupWindow->setGeometry(0, 0, 300 -3, 100 -3);
 	popupNameLabel = new QLabel();
 	popupNameLine = new QLineEdit();
@@ -109,6 +93,7 @@ MainWindow::MainWindow()
 	userNameLabel = new QLabel("Enter name: ");
 	userNameLine = new QLineEdit();
 	errorsExists = false;
+	errors = new QLineEdit();
 	
 	h1 = new QHBoxLayout();
 	h1->addWidget(userNameLabel);
@@ -118,12 +103,14 @@ MainWindow::MainWindow()
 	h2->addWidget(popupCancel);
 	popupLayout->addItem(h2);
 	popupLayout->addItem(h1);
-	
+	popupLayout->addWidget(errors);
+			
 	//popupLayout->addRow(userNameLabel, userNameLine);
 	//popupLayout->addRow(popupStart, popupCancel);
 	//popupView->setLayout(popupLayout);
 	popupWindow->setLayout(popupLayout);
-	
+	errors->setText("");
+	errors->setReadOnly(true);
 	popupView->setAlignment(Qt::AlignLeft | Qt::AlignTop);
 	popupScene->addWidget(popupWindow);
 	popupView->setWindowTitle( "Start Screen");
