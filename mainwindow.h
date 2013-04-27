@@ -24,8 +24,8 @@
 #include "coin.h"
 #include "thing.h"
 
-#define WINDOW_MAX_X 300
-#define WINDOW_MAX_Y 300
+#define WINDOW_MAX_X 1200
+#define WINDOW_MAX_Y 640
 #define VELOCITY 1
 
 class MainWindow : public QWidget {
@@ -45,7 +45,16 @@ private:
     
     QGraphicsScene *popupScene;
     QGraphicsView *popupView;
-    QVBoxLayout *popupLayout;
+    QFormLayout *popupLayout;
+    QWidget *popupWindow;
+    QLabel *popupNameLabel;
+    QLineEdit *popupNameLine;
+    QPushButton *popupStart;
+    QPushButton *popupCancel;
+    QLineEdit *errors;
+    bool errorsExists;
+    QHBoxLayout *h1;
+    QHBoxLayout *h2;
     
     //other stuff
     QFormLayout *layout;
@@ -81,6 +90,8 @@ public slots:
     void handleTimer();
     void pauseApp();
     void startGame();
+    void callPopup();
+    void cancelPopup();
 };
 
 #endif // MAINWINDOW_H
