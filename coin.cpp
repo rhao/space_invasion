@@ -1,6 +1,5 @@
 #include "coin.h"
 #include "mainwindow.h"
-#include <iostream>
 
 Coin::Coin( QPixmap *pm, int nx, int ny, MainWindow *w ) : Thing( pm, nx, ny, w )
 {

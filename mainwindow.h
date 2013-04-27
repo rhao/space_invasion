@@ -30,6 +30,7 @@
 #include "player.h"
 #include "background.h"
 #include "alien.h"
+#include "doctor.h"
 
 #define WINDOW_MAX_X 1200
 #define WINDOW_MAX_Y 640
@@ -98,9 +99,6 @@ private:
 	int timerCount;
 	bool gameStarted;
 	
-	int game_max_y;
-	int game_min_y;
-	
 	Background *bg;
 	Background *bg2;
 	QPixmap *bgImage;
@@ -112,6 +110,13 @@ private:
 	
 	QPixmap *alienImage;
 	Alien *a;
+	
+	QPixmap *doctorImage;
+	Doctor *d;
+
+public:
+	int game_max_y;
+	int game_min_y;
 
 public slots:
 	void handleTimer();
