@@ -1,4 +1,5 @@
 #include "player.h"
+#include <iostream>
 
 /**
  * Constructor
@@ -9,8 +10,9 @@
 Player::Player(QPixmap *p) : QGraphicsPixmapItem(*p)
 {
 	x = 200;
-	y = 100;
-	this->setPos(200, 200);
+	y = 200;
+	v = 10;
+	this->setPos(x, y);
 }
 
 /**
@@ -60,14 +62,31 @@ int Player::getV()
 	return v;
 }
 
-void Player::moveUp()
+void Player::moveUp(int window_min)
 {
-	y += v;
+	if(y - v < window_min)
+	{
+		y = window_min;
+	}
+	else
+	{
+		y -= v;
+	}
+	this->setPos(x, y);
 }
 
-void Player::moveDown()
+void Player::moveDown(int window_max)
 {
-	y -=v;
+	//std::cout<<"y: " <<y <<", max: " <<window_max;
+	if(y + v + 105 > window_max)
+	{
+		y = window_max - 105;
+	}
+	else
+	{
+		y += v;
+	}
+	this->setPos(x, y);
 }
 
 /**

@@ -27,6 +27,7 @@
 #include "coin.h"
 #include "thing.h"
 #include "player.h"
+#include "background.h"
 
 #define WINDOW_MAX_X 1200
 #define WINDOW_MAX_Y 640
@@ -43,9 +44,12 @@ public:
 	
 protected:
 	void keyPressEvent( QKeyEvent *e );
+	void initializeVariables();
 	void createPopup();
 	void createButtons();
 	void createOutput();
+	void createBackground();
+	
     
 private:
 	QGraphicsScene *scene;
@@ -92,6 +96,11 @@ private:
 	int timerCount;
 	bool gameStarted;
 	
+	int game_max_y;
+	int game_min_y;
+	
+	Background *bg;
+	QPixmap *bgImage;
 	Player *p;
 	QPixmap *playerImage;
 

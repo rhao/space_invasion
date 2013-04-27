@@ -1,7 +1,6 @@
 #ifndef PLAYER_H
 #define PLAYER_H
 
-#include <QKeyEvent>
 #include <QGraphicsPixmapItem>
 #include <QPixmap>
 
@@ -10,8 +9,8 @@ class Player : public QGraphicsPixmapItem
 	public:
 	Player(QPixmap *);
 	
-	void moveUp();
-	void moveDown();
+	void moveUp(int window_min);
+	void moveDown(int window_max);
 	void setY(int y_);
 	void setV(int v_);
 	

@@ -8,6 +8,7 @@
  */
 void MainWindow::handleTimer()
 {
+	bg->scroll(0, WINDOW_MAX_X - 3);
 }
 
 /**
@@ -38,6 +39,9 @@ void MainWindow::keyPressEvent(QKeyEvent *e)
  */
 void MainWindow::pauseApp()
 {
+	//p->moveDown(game_max_y);
+	p->moveUp(game_min_y);
+/**
 	if(timer->isActive())
 	{
 		timer->stop();
@@ -46,6 +50,7 @@ void MainWindow::pauseApp()
 	{
 		timer->start();
 	}
+	**/
 }
 
 /**
@@ -67,10 +72,11 @@ void MainWindow::startGame()
 		popupView->close();
 		userName = userNameLine->text();
 		
-		
+		createBackground();
 		playerImage = new QPixmap("images/astronaut.jpg");
 		*playerImage = playerImage->scaledToHeight(100);
 		p = new Player(playerImage);
+		timer->start();
 		//p->setPos(500, 500);
 	
 		scene->addItem(p);
@@ -107,6 +113,7 @@ MainWindow::MainWindow()
 	window = new QWidget();
 	gameStarted = false;
 	
+	initializeVariables();
 	createPopup();
 	createButtons();
 	createOutput();
@@ -114,7 +121,7 @@ MainWindow::MainWindow()
 	
 	view->setLayout(layout);
 	window->setLayout(layout);
-	window->setFixedSize(WINDOW_MAX_X-3, WINDOW_MAX_Y/5);
+	window->setFixedSize(WINDOW_MAX_X-3, game_min_y);
 	
 	view->setAlignment(Qt::AlignLeft | Qt::AlignTop);
 	scene->addWidget(window);
@@ -134,6 +141,7 @@ MainWindow::MainWindow()
 	connect(start, SIGNAL(clicked()), this, SLOT(callPopup()));
 	connect(popupStart, SIGNAL(clicked()), this, SLOT(startGame()));
 	connect(popupCancel, SIGNAL(clicked()), this, SLOT(cancelPopup()));
+	connect(pause, SIGNAL(clicked()), this, SLOT(pauseApp()));
 	
 	setFocus();
 }
@@ -148,6 +156,12 @@ void MainWindow::show()
 	//This is how we get our view displayed.
 	window->show();
 	view->show();
+}
+
+void MainWindow::initializeVariables()
+{
+	game_max_y = WINDOW_MAX_Y;
+	game_min_y = WINDOW_MAX_Y/5;
 }
 
 void MainWindow::createPopup()
@@ -231,6 +245,13 @@ void MainWindow::createOutput()
 void MainWindow::removeCoin(Coin *c)
 {
 	scene->removeItem(c);
+}
+
+void MainWindow::createBackground()
+{
+	bgImage = new QPixmap("images/stars.jpg");
+	*bgImage = bgImage->scaledToHeight(game_max_y - game_min_y);
+	bg = new Background(bgImage);
 }
 
 /**
