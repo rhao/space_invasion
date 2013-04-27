@@ -3,7 +3,7 @@
 
 Alien::Alien( QPixmap *pm, int nx, int ny, MainWindow *w ) : Thing( pm, nx, ny, w )
 {
-	vX = 2; //keep same as background's v
+	vX = 3; //keep same as background's v
 	vY = 0;
 }
 

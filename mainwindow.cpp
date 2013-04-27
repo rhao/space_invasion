@@ -15,6 +15,7 @@ void MainWindow::handleTimer()
 	a->move();
 	d->move();
 	mb->move();
+	t->move();
 }
 
 /**
@@ -99,6 +100,9 @@ void MainWindow::startGame()
 		mb = new MoneyBag(moneybagImage, WINDOW_MAX_X, 250, this);
 		scene->addItem(mb);
 		
+		t = new Turtle(turtleImage, WINDOW_MAX_X, WINDOW_MAX_Y-45, this);
+		scene->addItem(t);
+		
 	}
 	else
 	{
@@ -172,12 +176,15 @@ MainWindow::MainWindow()
 	
 	moneybagImage = new QPixmap("images/money-bag.png");
 	*moneybagImage = moneybagImage->scaledToHeight(40);
+	
+	turtleImage = new QPixmap("images/spaceturtle.gif");
+	*turtleImage = turtleImage->scaledToHeight(45);
 
 	//This is how we do animation. We use a timer with an interval of 20 milliseconds
 	//We connect the signal from the timer - the timeout() function to a function
 	//of our own - called handleTimer - which is in this same MainWindow class
 	timer = new QTimer(this);
-	timer->setInterval(20);
+	timer->setInterval(35);
 	
 	//connects
 	connect(timer, SIGNAL(timeout()), this, SLOT(handleTimer()));

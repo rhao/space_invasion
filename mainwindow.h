@@ -32,6 +32,7 @@
 #include "alien.h"
 #include "doctor.h"
 #include "moneybag.h"
+#include "turtle.h"
 
 #define WINDOW_MAX_X 1200
 #define WINDOW_MAX_Y 640
@@ -117,6 +118,9 @@ private:
 	
 	QPixmap *moneybagImage;
 	MoneyBag *mb;
+	
+	QPixmap *turtleImage;
+	Turtle *t;
 
 public:
 	int game_max_y;

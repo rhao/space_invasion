@@ -3,13 +3,14 @@
 
 Coin::Coin( QPixmap *pm, int nx, int ny, MainWindow *w ) : Thing( pm, nx, ny, w )
 {
-	vX = 1; //keep same as background's v
-	vY = 0;
+	vX = 3; //keep same as background's v
+	vY = 1;
 }
 
 void Coin::move()
 {
 	x = x - vX;
+	y = y + vY;
 	if(x < 0)
 	{
 		//window->removeCoin(this);
