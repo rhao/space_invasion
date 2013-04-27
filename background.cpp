@@ -7,11 +7,11 @@
  * @param w Pointer to the mainwindow
  * @return nothing
  */
-Background::Background(QPixmap *p) : QGraphicsPixmapItem(*p)
+Background::Background(QPixmap *p, int x_, int y_) : QGraphicsPixmapItem(*p)
 {
-	x = 0;
-	y = 0;
-	v = 10;
+	x = x_;
+	y = y_;
+	v = 1;
 	this->setPos(x, y);
 }
 

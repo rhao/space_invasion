@@ -9,6 +9,7 @@
 void MainWindow::handleTimer()
 {
 	bg->scroll(0, WINDOW_MAX_X - 3);
+	bg2->scroll(0, WINDOW_MAX_X - 3);
 }
 
 /**
@@ -133,7 +134,7 @@ MainWindow::MainWindow()
 	//We connect the signal from the timer - the timeout() function to a function
 	//of our own - called handleTimer - which is in this same MainWindow class
 	timer = new QTimer(this);
-	timer->setInterval(5);
+	timer->setInterval(10);
 	
 	//connects
 	connect(timer, SIGNAL(timeout()), this, SLOT(handleTimer()));
@@ -251,7 +252,11 @@ void MainWindow::createBackground()
 {
 	bgImage = new QPixmap("images/stars.jpg");
 	*bgImage = bgImage->scaledToHeight(game_max_y - game_min_y);
-	bg = new Background(bgImage);
+	bg = new Background(bgImage, 0, 0);
+	scene->addItem(bg);
+	
+	bg2 = new Background(bgImage, WINDOW_MAX_X, WINDOW_MAX_X);
+	scene->addItem(bg2);
 }
 
 /**

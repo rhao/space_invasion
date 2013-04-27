@@ -100,6 +100,7 @@ private:
 	int game_min_y;
 	
 	Background *bg;
+	Background *bg2;
 	QPixmap *bgImage;
 	Player *p;
 	QPixmap *playerImage;

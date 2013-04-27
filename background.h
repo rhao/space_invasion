@@ -7,7 +7,7 @@
 class Background : public QGraphicsPixmapItem
 {
 	public:
-	Background(QPixmap *);
+	Background(QPixmap *, int x_, int y_);
 	void scroll(int, int);
 	int getX();
 	int getY();
