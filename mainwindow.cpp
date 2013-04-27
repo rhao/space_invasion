@@ -66,6 +66,14 @@ void MainWindow::startGame()
 		pointsLine->setText("0");
 		popupView->close();
 		userName = userNameLine->text();
+		
+		
+		playerImage = new QPixmap("images/astronaut.jpg");
+		*playerImage = playerImage->scaledToHeight(100);
+		p = new Player(playerImage);
+		//p->setPos(500, 500);
+	
+		scene->addItem(p);
 	}
 	else
 	{
@@ -99,96 +107,19 @@ MainWindow::MainWindow()
 	window = new QWidget();
 	gameStarted = false;
 	
-	popupScene = new QGraphicsScene();
-	popupView = new QGraphicsView(popupScene);
-	popupLayout = new QFormLayout();
-	popupWindow = new QWidget();
-	popupView->setAlignment(Qt::AlignLeft | Qt::AlignTop);
-	popupView->setGeometry(WINDOW_MAX_X/2 - 80, WINDOW_MAX_Y/2, 300, 125);
-	popupWindow->setGeometry(0, 0, 300 -3, 100 -3);
-	popupNameLabel = new QLabel();
-	popupNameLine = new QLineEdit();
-	popupStart = new QPushButton("Start");
-	popupCancel = new QPushButton("Cancel");
-	userNameLabel = new QLabel("Enter name: ");
-	userNameLine = new QLineEdit();
-	errorsExists = false;
-	errors = new QLineEdit();
-	
-	h1 = new QHBoxLayout();
-	h1->addWidget(userNameLabel);
-	h1->addWidget(userNameLine);
-	h2 = new QHBoxLayout();
-	h2->addWidget(popupStart);
-	h2->addWidget(popupCancel);
-	popupLayout->addItem(h2);
-	popupLayout->addItem(h1);
-	popupLayout->addWidget(errors);
-			
-	//popupLayout->addRow(userNameLabel, userNameLine);
-	//popupLayout->addRow(popupStart, popupCancel);
-	//popupView->setLayout(popupLayout);
-	popupWindow->setLayout(popupLayout);
-	errors->setText("");
-	errors->setReadOnly(true);
-	popupView->setAlignment(Qt::AlignLeft | Qt::AlignTop);
-	popupScene->addWidget(popupWindow);
-	popupView->setWindowTitle( "Start Screen");
-	
-	startStopLayout = new QHBoxLayout();
-	start = new QPushButton("Start Game");
-	pause = new QPushButton("Pause");
-	quit = new QPushButton("Quit");
-	startStopLayout->addWidget(start);
-	startStopLayout->addWidget(pause);
-	startStopLayout->addWidget(quit);
-	layout->addRow(startStopLayout);
+	createPopup();
+	createButtons();
+	createOutput();
 	
 	
-	
-	//popupLayout->addWidget(userNameLabel);
-	//popupLayout->addWidget(userNameLine);
-	
-	labelsLayout = new QHBoxLayout();
-	outputLayout = new QHBoxLayout();
-	
-	nameLabel = new QLabel("Name:");
-	livesLabel = new QLabel("Lives:");
-	pointsLabel = new QLabel("Points:");
-	labelsLayout->addWidget(nameLabel);
-	labelsLayout->addWidget(livesLabel);
-	labelsLayout->addWidget(pointsLabel);
-	layout->addRow(labelsLayout);
-	
-	nameLine = new QLineEdit();
-	livesLine = new QLineEdit();
-	pointsLine = new QLineEdit();
-	nameLine->setReadOnly(true);
-	livesLine->setReadOnly(true);
-	pointsLine->setReadOnly(true);
-	outputLayout->addWidget(nameLine);
-	outputLayout->addWidget(livesLine);
-	outputLayout->addWidget(pointsLine);
-	layout->addRow(outputLayout);
-
 	view->setLayout(layout);
 	window->setLayout(layout);
-	window->setFixedSize(WINDOW_MAX_X-3, WINDOW_MAX_Y-3);
+	window->setFixedSize(WINDOW_MAX_X-3, WINDOW_MAX_Y/5);
 	
 	view->setAlignment(Qt::AlignLeft | Qt::AlignTop);
 	scene->addWidget(window);
 	view->setFixedSize( WINDOW_MAX_X, WINDOW_MAX_Y);
 	view->setWindowTitle( "Space Invasion");
-	
-	playerImage = new QPixmap("images/doctor.jpg");
-	p->setPos(300, 300);
-	p = new Player(this, playerImage);
-	
-	scene->addItem(p);
-	
-	
-	
-	
 	
 
 	//This is how we do animation. We use a timer with an interval of 5 milliseconds
@@ -217,6 +148,84 @@ void MainWindow::show()
 	//This is how we get our view displayed.
 	window->show();
 	view->show();
+}
+
+void MainWindow::createPopup()
+{
+	popupScene = new QGraphicsScene();
+	popupView = new QGraphicsView(popupScene);
+	popupLayout = new QFormLayout();
+	popupWindow = new QWidget();
+	popupView->setAlignment(Qt::AlignLeft | Qt::AlignTop);
+	popupView->setGeometry(WINDOW_MAX_X/2 - 80, WINDOW_MAX_Y/2, 300, 120);
+	popupWindow->setGeometry(0, 0, 300 -3, 120 -3);
+	popupNameLabel = new QLabel();
+	popupNameLine = new QLineEdit();
+	popupStart = new QPushButton("Start");
+	popupCancel = new QPushButton("Cancel");
+	userNameLabel = new QLabel("Enter name: ");
+	userNameLine = new QLineEdit();
+	errorsExists = false;
+	errors = new QLineEdit();
+	
+	h1 = new QHBoxLayout();
+	h1->addWidget(userNameLabel);
+	h1->addWidget(userNameLine);
+	h2 = new QHBoxLayout();
+	h2->addWidget(popupStart);
+	h2->addWidget(popupCancel);
+	popupLayout->addItem(h2);
+	popupLayout->addItem(h1);
+	popupLayout->addWidget(errors);
+			
+	//popupLayout->addRow(userNameLabel, userNameLine);
+	//popupLayout->addRow(popupStart, popupCancel);
+	//popupView->setLayout(popupLayout);
+	popupWindow->setLayout(popupLayout);
+	errors->setText("");
+	errors->setReadOnly(true);
+	popupView->setAlignment(Qt::AlignLeft | Qt::AlignTop);
+	popupScene->addWidget(popupWindow);
+	popupView->setWindowTitle( "Start Screen");
+}
+
+void MainWindow::createButtons()
+{
+	startStopLayout = new QHBoxLayout();
+	start = new QPushButton("Start Game");
+	pause = new QPushButton("Pause");
+	quit = new QPushButton("Quit");
+	startStopLayout->addWidget(start);
+	startStopLayout->addWidget(pause);
+	startStopLayout->addWidget(quit);
+	layout->addRow(startStopLayout);
+}
+
+void MainWindow::createOutput()
+{
+
+	labelsLayout = new QHBoxLayout();
+	outputLayout = new QHBoxLayout();
+	
+	nameLabel = new QLabel("Name:");
+	livesLabel = new QLabel("Lives:");
+	pointsLabel = new QLabel("Points:");
+	labelsLayout->addWidget(nameLabel);
+	labelsLayout->addWidget(livesLabel);
+	labelsLayout->addWidget(pointsLabel);
+	layout->addRow(labelsLayout);
+	
+	nameLine = new QLineEdit();
+	livesLine = new QLineEdit();
+	pointsLine = new QLineEdit();
+	nameLine->setReadOnly(true);
+	livesLine->setReadOnly(true);
+	pointsLine->setReadOnly(true);
+	outputLayout->addWidget(nameLine);
+	outputLayout->addWidget(livesLine);
+	outputLayout->addWidget(pointsLine);
+	layout->addRow(outputLayout);
+
 }
 
 void MainWindow::removeCoin(Coin *c)

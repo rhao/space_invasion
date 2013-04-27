@@ -41,8 +41,11 @@ public:
 	void show();
 	void removeCoin(Coin *c);
 	
-//protected:
+protected:
 	void keyPressEvent( QKeyEvent *e );
+	void createPopup();
+	void createButtons();
+	void createOutput();
     
 private:
 	QGraphicsScene *scene;

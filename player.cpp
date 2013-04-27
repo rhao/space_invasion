@@ -1,5 +1,4 @@
 #include "player.h"
-#include "mainwindow.h"
 
 /**
  * Constructor
@@ -7,10 +6,11 @@
  * @param w Pointer to the mainwindow
  * @return nothing
  */
-Player::Player(MainWindow *w, QPixmap *p) : QGraphicsPixmapItem(*p)
+Player::Player(QPixmap *p) : QGraphicsPixmapItem(*p)
 {
-	window = w;
-	x = 80;
+	x = 200;
+	y = 100;
+	this->setPos(200, 200);
 }
 
 /**

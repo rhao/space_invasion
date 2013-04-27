@@ -1,8 +1,6 @@
 #ifndef PLAYER_H
 #define PLAYER_H
 
-class MainWindow;
-
 #include <QKeyEvent>
 #include <QGraphicsPixmapItem>
 #include <QPixmap>
@@ -10,7 +8,7 @@ class MainWindow;
 class Player : public QGraphicsPixmapItem
 {
 	public:
-	Player(MainWindow*, QPixmap *);
+	Player(QPixmap *);
 	
 	void moveUp();
 	void moveDown();
@@ -23,7 +21,6 @@ class Player : public QGraphicsPixmapItem
 	~Player();
 	
 	private:
-	MainWindow *window;
 	int x;
 	int y;
 	int v;
