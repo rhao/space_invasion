@@ -11,7 +11,7 @@ Player::Player(QPixmap *p) : QGraphicsPixmapItem(*p)
 {
 	x = 250;
 	y = 400;
-	v = 1;
+	v = 2;
 	this->setPos(x, y);
 }
 
@@ -78,9 +78,9 @@ void Player::moveUp(int window_min)
 void Player::moveDown(int window_max)
 {
 	//std::cout<<"y: " <<y <<", max: " <<window_max;
-	if(y + v + 105 > window_max)
+	if(y + v + 70 > window_max)
 	{
-		y = window_max - 105;
+		y = window_max - 70;
 	}
 	else
 	{

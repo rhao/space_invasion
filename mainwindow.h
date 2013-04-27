@@ -39,11 +39,13 @@
 #define WINDOW_MAX_Y 640
 #define VELOCITY 1
 
-class MainWindow : public QWidget {
+//class MainWindow : public QWidget {
+class MainWindow : public QMainWindow {
 	Q_OBJECT
     
 public:
-	MainWindow(QWidget *parent = 0);
+	//MainWindow(QWidget *parent = 0);
+	MainWindow(QMainWindow *parent = 0);
 	~MainWindow();
 	void show();
 	void removeCoin(Coin *c);
@@ -58,7 +60,6 @@ protected:
 	void createOutput();
 	void createBackground();
 	
-    
 private:
 	QGraphicsScene *scene;
 	QGraphicsView *view;

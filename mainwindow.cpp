@@ -4,6 +4,14 @@
 /**
  * Performs appropriate actions every time timer is called.
  *
+ 
+ grab keyboard x error bad window
+ merrick said it seems like an issue that you can't fix with my code, but rather something about 
+ qt or the vm
+ 
+ get rid of player image, set player coordinates, set explosion image to that location,
+ recreate player
+ 
  * @return nothing
  */
 void MainWindow::handleTimer()
@@ -17,6 +25,8 @@ void MainWindow::handleTimer()
 	mb->move();
 	t->move();
 	moveCount++;
+
+	
 	
 	/**
 	if(mousePressed)
@@ -42,16 +52,22 @@ void MainWindow::handleTimer()
 void MainWindow::keyPressEvent(QKeyEvent *e)
 {
 	//setFocusPolicy(Qt::StrongFocus);
-	std::cout<<"key";
+	//std::cout<<"key";
 	switch(e->key())
 	{
 		case Qt::Key_Up:
 			std::cout<<"Up\n";
+			p->moveUp(game_min_y);
+			p->moveUp(game_min_y);
+			p->moveUp(game_min_y);
 			break;
 		case Qt::Key_Down:
 			std::cout<<"Down\n";
+			p->moveDown(game_max_y);
+			p->moveDown(game_max_y);
+			p->moveDown(game_max_y);
 			break;
-		default: 
+		default:
 			QWidget::keyPressEvent(e);
 	}
 	
@@ -135,6 +151,8 @@ void MainWindow::startGame()
 		t = new Turtle(turtleImage, WINDOW_MAX_X, WINDOW_MAX_Y-45, this);
 		scene->addItem(t);
 		
+		this->grabKeyboard();
+		
 	}
 	else
 	{
@@ -160,7 +178,8 @@ void MainWindow::cancelPopup()
  *
  * @return nothing
  */
-MainWindow::MainWindow(QWidget* parent) : QWidget(parent)
+//MainWindow::MainWindow(QWidget* parent) : QWidget(parent)
+MainWindow::MainWindow(QMainWindow* parent) : QMainWindow(parent)
 {
 	//this->setFocusPolicy(Qt::StrongFocus);
 	
@@ -229,7 +248,8 @@ MainWindow::MainWindow(QWidget* parent) : QWidget(parent)
 	connect(pause, SIGNAL(clicked()), this, SLOT(pauseApp()));
 	
 	//setFocus();
-	
+	view->setFocus();
+	//std::cout<<QApplication::focusWidget();
 }
 
 /**
