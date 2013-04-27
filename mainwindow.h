@@ -29,6 +29,7 @@
 #include "thing.h"
 #include "player.h"
 #include "background.h"
+#include "alien.h"
 
 #define WINDOW_MAX_X 1200
 #define WINDOW_MAX_Y 640
@@ -108,6 +109,9 @@ private:
 	
 	QPixmap *coinImage;
 	Coin *c;
+	
+	QPixmap *alienImage;
+	Alien *a;
 
 public slots:
 	void handleTimer();

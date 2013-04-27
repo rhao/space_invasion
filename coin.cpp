@@ -4,7 +4,6 @@
 
 Coin::Coin( QPixmap *pm, int nx, int ny, MainWindow *w ) : Thing( pm, nx, ny, w )
 {
-	count = 0;
 	vX = 1; //keep same as background's v
 	vY = 0;
 }

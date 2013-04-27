@@ -12,6 +12,7 @@ void MainWindow::handleTimer()
 	bg2->scroll(0, WINDOW_MAX_X);
 	
 	c->move();
+	a->move();
 }
 
 /**
@@ -77,7 +78,7 @@ void MainWindow::startGame()
 		
 		createBackground();
 		playerImage = new QPixmap("images/astronaut.jpg");
-		*playerImage = playerImage->scaledToHeight(100);
+		*playerImage = playerImage->scaledToHeight(70);
 		p = new Player(playerImage);
 		timer->start();
 		//p->setPos(500, 500);
@@ -86,11 +87,15 @@ void MainWindow::startGame()
 		
 		c = new Coin(coinImage, WINDOW_MAX_X - 50, 300, this);
 		scene->addItem(c);
+		
+		a = new Alien(alienImage, WINDOW_MAX_X - 75, 400, this);
+		scene->addItem(a);
+		
 	}
 	else
 	{
 		errorsExists = true;
-		errors->setText("Enter a name!");
+		errors->setText("Enter a name above!");
 	}
 }
 
@@ -144,17 +149,22 @@ MainWindow::MainWindow()
 	qreal _x = 0;
 	qreal _y = 0;
 	scene->setSceneRect(_x, _y, _w, _h);
-	//scene->setFixedSize(WINDOW_MAX_X, WINDOW_MAX_Y);
 	view->setWindowTitle( "Space Invasion");
 	
+	
+	//setting images of 5 things!
 	coinImage = new QPixmap("images/coin.png");
 	*coinImage = coinImage->scaledToHeight(30);
+	
+	alienImage = new QPixmap("images/alien2.jpg");
+	*alienImage = alienImage->scaledToHeight(60);
+	
 
-	//This is how we do animation. We use a timer with an interval of 5 milliseconds
+	//This is how we do animation. We use a timer with an interval of 20 milliseconds
 	//We connect the signal from the timer - the timeout() function to a function
 	//of our own - called handleTimer - which is in this same MainWindow class
 	timer = new QTimer(this);
-	timer->setInterval(10);
+	timer->setInterval(20);
 	
 	//connects
 	connect(timer, SIGNAL(timeout()), this, SLOT(handleTimer()));

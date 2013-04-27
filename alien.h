@@ -1,19 +1,21 @@
-#ifndef COIN_H
-#define COIN_H
+#ifndef ALIEN_H
+#define ALIEN_H
 
 class MainWindow;
 
 #include "thing.h"
 
-class Coin: public Thing
+class Alien: public Thing
 {
 	public:
-	Coin(QPixmap *pm, int nx, int ny, MainWindow *w);
+	Alien(QPixmap *pm, int nx, int ny, MainWindow *w);
 	void move();
 	bool shouldRemove();
 	
 	private:
 	void remove();
+	~Alien();
+	
 };
 
 #endif

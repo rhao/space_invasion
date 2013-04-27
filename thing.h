@@ -2,6 +2,7 @@
 #define THING_H
 
 #include <QGraphicsPixmapItem>
+#include <QPixmap>
 
 class Thing: public QGraphicsPixmapItem
 {
