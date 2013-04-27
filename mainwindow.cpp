@@ -8,8 +8,8 @@
  */
 void MainWindow::handleTimer()
 {
-	bg->scroll(0, WINDOW_MAX_X - 3);
-	bg2->scroll(0, WINDOW_MAX_X - 3);
+	bg->scroll(0, WINDOW_MAX_X);
+	bg2->scroll(0, WINDOW_MAX_X);
 }
 
 /**
@@ -251,11 +251,11 @@ void MainWindow::removeCoin(Coin *c)
 void MainWindow::createBackground()
 {
 	bgImage = new QPixmap("images/stars.jpg");
-	*bgImage = bgImage->scaledToHeight(game_max_y - game_min_y);
-	bg = new Background(bgImage, 0, 0);
+	*bgImage = bgImage->scaled(WINDOW_MAX_X + 3, game_max_y - game_min_y, Qt::IgnoreAspectRatio, Qt::FastTransformation);
+	bg = new Background(bgImage, 0, game_min_y);
 	scene->addItem(bg);
 	
-	bg2 = new Background(bgImage, WINDOW_MAX_X, WINDOW_MAX_X);
+	bg2 = new Background(bgImage, WINDOW_MAX_X, game_min_y);
 	scene->addItem(bg2);
 }
 
