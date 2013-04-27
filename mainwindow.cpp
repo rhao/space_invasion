@@ -14,6 +14,7 @@ void MainWindow::handleTimer()
 	c->move();
 	a->move();
 	d->move();
+	mb->move();
 }
 
 /**
@@ -95,6 +96,9 @@ void MainWindow::startGame()
 		d = new Doctor(doctorImage, WINDOW_MAX_X, WINDOW_MAX_Y -100, this);
 		scene->addItem(d);
 		
+		mb = new MoneyBag(moneybagImage, WINDOW_MAX_X, 250, this);
+		scene->addItem(mb);
+		
 	}
 	else
 	{
@@ -165,6 +169,9 @@ MainWindow::MainWindow()
 	
 	doctorImage = new QPixmap("images/doctor.jpg");
 	*doctorImage = doctorImage->scaledToHeight(60);
+	
+	moneybagImage = new QPixmap("images/money-bag.png");
+	*moneybagImage = moneybagImage->scaledToHeight(40);
 
 	//This is how we do animation. We use a timer with an interval of 20 milliseconds
 	//We connect the signal from the timer - the timeout() function to a function
