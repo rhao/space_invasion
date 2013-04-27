@@ -25,6 +25,7 @@
 #include <QGraphicsPixmapItem>
 #include <QPixmap>
 #include <QPalette>
+#include <QGraphicsSceneMouseEvent>
 #include "coin.h"
 #include "thing.h"
 #include "player.h"
@@ -38,17 +39,19 @@
 #define WINDOW_MAX_Y 640
 #define VELOCITY 1
 
-class MainWindow : public QMainWindow {
+class MainWindow : public QWidget {
 	Q_OBJECT
     
 public:
-	explicit MainWindow();
+	MainWindow(QWidget *parent = 0);
 	~MainWindow();
 	void show();
 	void removeCoin(Coin *c);
+	void keyPressEvent(QKeyEvent *e);
 	
 protected:
-	void keyPressEvent( QKeyEvent *e );
+	//void keyPressEvent( QKeyEvent *e );
+	
 	void initializeVariables();
 	void createPopup();
 	void createButtons();
@@ -121,6 +124,9 @@ private:
 	
 	QPixmap *turtleImage;
 	Turtle *t;
+	
+	bool mousePressed;
+	int moveCount;
 
 public:
 	int game_max_y;

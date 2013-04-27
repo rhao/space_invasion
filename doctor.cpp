@@ -4,7 +4,7 @@
 Doctor::Doctor( QPixmap *pm, int nx, int ny, MainWindow *w ) : Thing( pm, nx, ny, w )
 {
 	vX = 3; //keep same as background's v
-	vY = 5;
+	vY = -5;
 }
 
 void Doctor::move()

@@ -16,6 +16,21 @@ void MainWindow::handleTimer()
 	d->move();
 	mb->move();
 	t->move();
+	moveCount++;
+	
+	/**
+	if(mousePressed)
+	{
+		p->moveUp(game_min_y);
+	}
+	else if(moveCount == 15)
+	{
+		moveCount = 0;
+		p->moveDown(game_min_y);
+	}
+	**/
+	
+	
 }
 
 /**
@@ -26,7 +41,21 @@ void MainWindow::handleTimer()
  */
 void MainWindow::keyPressEvent(QKeyEvent *e)
 {
+	//setFocusPolicy(Qt::StrongFocus);
 	std::cout<<"key";
+	switch(e->key())
+	{
+		case Qt::Key_Up:
+			std::cout<<"Up\n";
+			break;
+		case Qt::Key_Down:
+			std::cout<<"Down\n";
+			break;
+		default: 
+			QWidget::keyPressEvent(e);
+	}
+	
+	/**
 	if(e->key() == Qt::Key_Q)
 	{
 		std::cout<<"Up\n";
@@ -37,8 +66,11 @@ void MainWindow::keyPressEvent(QKeyEvent *e)
 		std::cout<<"Down\n";
 		//p->moveDown();
 	}
+	**/
 }
 
+ 
+ 
 /**
  * Pauses the app.
  *
@@ -128,8 +160,10 @@ void MainWindow::cancelPopup()
  *
  * @return nothing
  */
-MainWindow::MainWindow()
+MainWindow::MainWindow(QWidget* parent) : QWidget(parent)
 {
+	//this->setFocusPolicy(Qt::StrongFocus);
+	
 	scene = new QGraphicsScene();
 	view = new QGraphicsView( scene );
 	layout = new QFormLayout();
@@ -194,7 +228,8 @@ MainWindow::MainWindow()
 	connect(popupCancel, SIGNAL(clicked()), this, SLOT(cancelPopup()));
 	connect(pause, SIGNAL(clicked()), this, SLOT(pauseApp()));
 	
-	setFocus();
+	//setFocus();
+	
 }
 
 /**
@@ -213,6 +248,8 @@ void MainWindow::initializeVariables()
 {
 	game_max_y = WINDOW_MAX_Y;
 	game_min_y = WINDOW_MAX_Y/5 - 20;
+	mousePressed = false;
+	moveCount = 0;
 }
 
 void MainWindow::createPopup()

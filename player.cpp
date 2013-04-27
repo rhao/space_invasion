@@ -9,9 +9,9 @@
  */
 Player::Player(QPixmap *p) : QGraphicsPixmapItem(*p)
 {
-	x = 200;
-	y = 200;
-	v = 10;
+	x = 250;
+	y = 400;
+	v = 1;
 	this->setPos(x, y);
 }
 
