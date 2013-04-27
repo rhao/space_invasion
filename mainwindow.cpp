@@ -128,8 +128,8 @@ MainWindow::MainWindow()
 	scene->addWidget(window);
 	view->setFixedSize( WINDOW_MAX_X, WINDOW_MAX_Y);
 	
-	qreal _w = WINDOW_MAX_X;
-	qreal _h = WINDOW_MAX_Y;
+	qreal _w = WINDOW_MAX_X - 3;
+	qreal _h = WINDOW_MAX_Y - 3;
 	qreal _x = 0;
 	qreal _y = 0;
 	scene->setSceneRect(_x, _y, _w, _h);
