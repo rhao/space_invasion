@@ -163,6 +163,7 @@ void MainWindow::startGame()
 
 void MainWindow::callPopup()
 {
+	popupView->grabKeyboard();
 	popupView->show();
 }
 
