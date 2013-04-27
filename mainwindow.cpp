@@ -10,6 +10,8 @@ void MainWindow::handleTimer()
 {
 	bg->scroll(0, WINDOW_MAX_X);
 	bg2->scroll(0, WINDOW_MAX_X);
+	
+	c->move();
 }
 
 /**
@@ -81,6 +83,9 @@ void MainWindow::startGame()
 		//p->setPos(500, 500);
 	
 		scene->addItem(p);
+		
+		c = new Coin(coinImage, WINDOW_MAX_X - 50, 300, this);
+		scene->addItem(c);
 	}
 	else
 	{
@@ -119,6 +124,12 @@ MainWindow::MainWindow()
 	createButtons();
 	createOutput();
 	
+	QPalette pal(palette());
+	//pal.setColor(QPalette::Background, QColor(152, 251, 152, 200));
+	//pal.setColor(QPalette::Background, QColor(138, 43, 226, 50));
+	pal.setColor(QPalette::Background, QColor(75, 209, 214, 100));
+	window->setAutoFillBackground(true);
+	window->setPalette(pal);
 	
 	view->setLayout(layout);
 	window->setLayout(layout);
@@ -136,6 +147,8 @@ MainWindow::MainWindow()
 	//scene->setFixedSize(WINDOW_MAX_X, WINDOW_MAX_Y);
 	view->setWindowTitle( "Space Invasion");
 	
+	coinImage = new QPixmap("images/coin.png");
+	*coinImage = coinImage->scaledToHeight(30);
 
 	//This is how we do animation. We use a timer with an interval of 5 milliseconds
 	//We connect the signal from the timer - the timeout() function to a function
@@ -169,7 +182,7 @@ void MainWindow::show()
 void MainWindow::initializeVariables()
 {
 	game_max_y = WINDOW_MAX_Y;
-	game_min_y = WINDOW_MAX_Y/5;
+	game_min_y = WINDOW_MAX_Y/5 - 20;
 }
 
 void MainWindow::createPopup()

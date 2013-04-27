@@ -4,13 +4,13 @@
 ###Five Things:
   1. Coin
     * Player earns points by collecting coins.
-    * Coins randomly appear on screen and do not move.
+    * Coins randomly appear on screen and move with background.
     * Coins look like gold coins.
     
 ![alt text](images/coin.png "Coin")
   2. Money Bag
     * Player will be temporarily unaffected by every item except for coins.
-    * Money bags randomly move around screen.
+    * Money bags randomly move up and down, however they always move to the left.
     * Money bags look like sacks of money.
     
 ![alt text](images/money-bag.png "Money Bag")

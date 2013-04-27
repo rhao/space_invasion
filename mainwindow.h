@@ -24,6 +24,7 @@
 #include <iostream>
 #include <QGraphicsPixmapItem>
 #include <QPixmap>
+#include <QPalette>
 #include "coin.h"
 #include "thing.h"
 #include "player.h"
@@ -104,6 +105,9 @@ private:
 	QPixmap *bgImage;
 	Player *p;
 	QPixmap *playerImage;
+	
+	QPixmap *coinImage;
+	Coin *c;
 
 public slots:
 	void handleTimer();

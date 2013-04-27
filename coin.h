@@ -10,6 +10,7 @@ class Coin: public Thing
 	public:
 	Coin(QPixmap *pm, int nx, int ny, MainWindow *w);
 	void move();
+	bool shouldRemove();
 	
 	private:
 	void remove();

@@ -1,8 +1,7 @@
 #include "mainwindow.h"
 
-Thing::Thing( QPixmap* p, int nx, int ny, MainWindow *w )
+Thing::Thing( QPixmap* p, int nx, int ny, MainWindow *w ) : QGraphicsPixmapItem(*p)
 {
-	pixMap = p; //Handy to store separate to get image width/height, etc.
 	setPixmap( *p );
 	x = nx;
 	y = ny;
