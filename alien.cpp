@@ -16,7 +16,7 @@ void Alien::move()
 
 bool Alien::shouldRemove()
 {
-	if(x < -50)
+	if(x < -100)
 	{
 		return true;
 	}

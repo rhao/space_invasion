@@ -5,19 +5,92 @@
  * Performs appropriate actions every time timer is called.
  *
  
- slowly make more items/speed up/make it smoother (i think it speeds up then slows down..)
- 
- game over screen
- 
- remove items as they go off screen
- 
  grab keyboard x error bad window
  merrick said it seems like an issue that you can't fix with my code, but rather something about 
  qt or the vm
  
+ doxygen
+ 
+ update design doc
+ 
+ time it - make sure it speeds up in 90 seconds and eventually becomes unplayable
+ 
  * @return nothing
  */
- 
+
+void MainWindow::handleTimer()
+{
+	handleGameCounter();
+	
+	bg->scroll(0, WINDOW_MAX_X);
+	bg2->scroll(0, WINDOW_MAX_X);
+	
+	for(int i = 0; i < (int)things.size(); i++)
+	{
+		things[i]->move();
+		checkCollisions(i);
+
+	}
+	
+	handleGamePopups();
+	
+	if(turtleBool)
+	{
+		timer->setInterval(50);
+		turtleCount++;
+		if(turtleCount == 75)
+		{
+			turtleCount = 0;
+			turtleBool = false;
+			setTimer();
+		}
+	}
+	
+	//removing items as they go off screen
+	for(int i = 0; i < (int)things.size(); i++)
+	{
+		if(things[i]->shouldRemove())
+		{
+			scene->removeItem(things[i]);
+			removeFromVector(things[i]);
+			i--;
+		}
+		
+	}
+	generateNewThings();
+}
+
+/**
+ * Function is called every time a tile is clicked.
+ *
+ * @param e Mouse event
+ * @return nothing
+ */
+void MainWindow::keyPressEvent(QKeyEvent *e)
+{
+	switch(e->key())
+	{
+		case Qt::Key_Up:
+			if(!paused)
+			{
+				p->moveUp(game_min_y);
+				p->moveUp(game_min_y);
+				p->moveUp(game_min_y);
+			}
+			break;
+		case Qt::Key_Down:
+			if(!paused)
+			{
+				p->moveDown(game_max_y);
+				p->moveDown(game_max_y);
+				p->moveDown(game_max_y);
+			}
+			break;
+		default:
+			QWidget::keyPressEvent(e);
+	}
+}
+
  
 void MainWindow::checkCollisions(int i)
 {
@@ -63,7 +136,6 @@ void MainWindow::handleGameCounter()
 	
 	if(gameCounter == 500)
 	{
-		std::cout<<"CHANGE\n\n";
 		gameCounter = 0;
 
 		if(gameSpeed <= 1)
@@ -140,112 +212,11 @@ void MainWindow::generateNewThings()
 			newThing = new Turtle(turtleImage, newX, randY, this);
 		}
 		
-		newThing = new Alien(alienImage, newX, randY, this);
 		things.push_back(newThing);
 		scene->addItem(newThing);
-	
-	/*
-		randY = (rand() % (WINDOW_MAX_Y - game_min_y - 100)) + game_min_y;
-		randThing = rand() % 14;
-		Thing *newThing;
-
-		if(randThing <= 5)
-		{
-			newThing = new Coin(coinImage, newX, randY, this);
-		}
-		else if(randThing <= 8)
-		{
-			newThing = new Alien(alienImage, newX, randY, this);
-		}
-		else if(randThing <= 10)
-		{
-			newThing = new Doctor(doctorImage, newX, randY, this);
-		}
-		else if(randThing <= 12)
-		{
-			newThing = new MoneyBag(moneybagImage, newX, randY, this);
-		}
-		else
-		{
-			newThing = new Turtle(turtleImage, newX, randY, this);
-		}
-		
-		things.push_back(newThing);
-		scene->addItem(newThing);
-		*/
 	}
 }
 
-void MainWindow::handleTimer()
-{
-	handleGameCounter();
-	
-	bg->scroll(0, WINDOW_MAX_X);
-	bg2->scroll(0, WINDOW_MAX_X);
-	
-	for(int i = 0; i < (int)things.size(); i++)
-	{
-		things[i]->move();
-		checkCollisions(i);
-
-	}
-	
-	handleGamePopups();
-	
-	if(turtleBool)
-	{
-		timer->setInterval(50);
-		turtleCount++;
-		if(turtleCount == 75)
-		{
-			turtleCount = 0;
-			turtleBool = false;
-			setTimer();
-		}
-	}
-	
-	//if(things[i]->shouldRemove())
-	//{
-		//REMOVE FROM VECTOR AFTER OFF SCREEN
-		//change money bag - gains you more points (100?) and makes invincible
-	//}
-	generateNewThings();
-}
-
-/**
- * Function is called every time a tile is clicked.
- *
- * @param e Mouse event
- * @return nothing
- */
-void MainWindow::keyPressEvent(QKeyEvent *e)
-{
-	//setFocusPolicy(Qt::StrongFocus);
-	//std::cout<<"key";
-	switch(e->key())
-	{
-		case Qt::Key_Up:
-			if(!paused)
-			{
-				p->moveUp(game_min_y);
-				p->moveUp(game_min_y);
-				p->moveUp(game_min_y);
-			}
-			break;
-		case Qt::Key_Down:
-			if(!paused)
-			{
-				p->moveDown(game_max_y);
-				p->moveDown(game_max_y);
-				p->moveDown(game_max_y);
-			}
-			break;
-		default:
-			QWidget::keyPressEvent(e);
-	}
-}
-
- 
  
 /**
  * Pauses the app.

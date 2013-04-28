@@ -23,8 +23,8 @@ EndScreen::EndScreen(QString n, int s, MainWindow *w) : QWidget()
 	nameText = new QGraphicsTextItem("Name: " + n);
 	scoreText = new QGraphicsTextItem(scoreString);
 	
-	nameText->setDefaultTextColor(Qt::black);
-	scoreText->setDefaultTextColor(Qt::black);
+	nameText->setDefaultTextColor(Qt::red);
+	scoreText->setDefaultTextColor(Qt::red);
 	nameText->setFont(font);
 	scoreText->setFont(font);
 	

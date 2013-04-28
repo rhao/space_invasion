@@ -39,7 +39,7 @@ void Doctor::move()
 
 bool Doctor::shouldRemove()
 {
-	if(x < -50)
+	if(x < -100)
 	{
 		return true;
 	}
