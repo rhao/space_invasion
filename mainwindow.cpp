@@ -98,6 +98,11 @@ void MainWindow::checkCollisions(int i)
 		{
 			p->setPixmap(*playerImageBig);
 			playerHeight = 110;
+			if(p->getY() > WINDOW_MAX_Y - 110)
+			{
+				p->setY(WINDOW_MAX_Y - 110);
+				p->setPos(p->getX(), p->getY());
+			}
 		}
 		invincibleCount++;
 		if(invincibleCount == 3000)
@@ -209,6 +214,7 @@ void MainWindow::generateNewThings()
 		{
 			newThing = new Turtle(turtleImage, newX, randY, this);
 		}
+		newThing = new Alien(alienImage, newX, randY, this);
 		
 		things.push_back(newThing);
 		scene->addItem(newThing);
@@ -250,9 +256,17 @@ void MainWindow::startGame()
 		scene->removeItem(explosions[0]);
 		explosions.pop_front();
 	}
+	/*
 	userName = userNameLine->text();
 	if(userName != "")
 	{	
+	
+	*/
+	QString temp = userNameLine->text();
+	if(temp != "")
+	{
+		userName = temp;	
+		
 		if(gameJustStarted)
 		{
 			scene->removeItem(title);
@@ -309,14 +323,29 @@ void MainWindow::startGame()
 
 void MainWindow::callPopup()
 {
+	//pausing if popup is called (i.e. start game was pressed)
+	if(timer->isActive())
+	{
+		timer->stop();
+		paused = !paused;
+		pause->setText("Resume");
+	}
 	view->show();
 	popupView->show();
 	popupView->raise();
+	popupView->setGeometry(WINDOW_MAX_X/2 - 80, WINDOW_MAX_Y/2 + 40, 300, 90);
 	popupView->grabKeyboard();
 }
 
 void MainWindow::cancelPopup()
 {
+	//resume if popup cancelled - MIGHT NOT WORK
+	if(!(timer->isActive()))
+	{
+		timer->start();
+		paused = !paused;
+		pause->setText("Pause");
+	}
 	if(gameJustStarted)
 	{
 		qApp->quit();	

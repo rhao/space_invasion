@@ -33,8 +33,10 @@ EndScreen::EndScreen(QString n, int s, MainWindow *w) : QWidget()
 	window = new QWidget();
 	layout = new QHBoxLayout();
 	
-	endGameImage = new QPixmap("images/space_turtle.gif");
-	*endGameImage = endGameImage->scaled(WINDOW_MAX_X, WINDOW_MAX_Y + 30, Qt::IgnoreAspectRatio, Qt::FastTransformation);
+
+	
+	endGameImage = new QPixmap("images/turtle_in_space.gif");
+	*endGameImage = endGameImage->scaled(WINDOW_MAX_X, WINDOW_MAX_Y + 50, Qt::IgnoreAspectRatio, Qt::FastTransformation);
 	
 	pal = new QPalette();
 	pal->setBrush(QPalette::Background, *endGameImage);
@@ -42,6 +44,10 @@ EndScreen::EndScreen(QString n, int s, MainWindow *w) : QWidget()
 	
 	restart = new QPushButton("Restart");
 	quit = new QPushButton("Quit");
+	
+	layout->setAlignment(Qt::AlignCenter);
+	restart->setFixedSize(200, 60);
+	quit->setFixedSize(200, 60);
 	
 	//scene->addItem(restart);
 	//scene->addItem(quit);
@@ -53,15 +59,15 @@ EndScreen::EndScreen(QString n, int s, MainWindow *w) : QWidget()
 	scene->addWidget(window);
 	
 	view->setFixedSize( WINDOW_MAX_X + 5, WINDOW_MAX_Y + 30);
-	qreal _w = WINDOW_MAX_X + 2;
-	qreal _h = WINDOW_MAX_Y + 13;
+	qreal _w = WINDOW_MAX_X + 3;
+	qreal _h = WINDOW_MAX_Y + 24;
 	qreal _x = 0;
 	qreal _y = 0;
 	//window->setGeometry(0, 0, WINDOW_MAX_X, WINDOW_MAX_Y + 20);
-	window->setFixedSize(WINDOW_MAX_X, WINDOW_MAX_Y + 20);
+	window->setFixedSize(WINDOW_MAX_X, WINDOW_MAX_Y + 30);
 	scene->setSceneRect(_x, _y, _w, _h);
 	nameText->setPos(450, 400);
-	scoreText->setPos(450, 550);
+	scoreText->setPos(450, 450);
 	scene->addItem(nameText);
 	scene->addItem(scoreText);
 	
