@@ -7,7 +7,13 @@
  
  slowly make more items/speed up
  
- //seg faults if hits monster first
+ popup is the only thing that pops up first
+ OR start screen
+ 
+ game over screen
+ 
+ remove items as they go off screen
+ 
 //plus one stays if hits 2 doctors at same time
  
  segfaults if i double click on start
@@ -15,9 +21,6 @@
  grab keyboard x error bad window
  merrick said it seems like an issue that you can't fix with my code, but rather something about 
  qt or the vm
- 
- change velocities to rand
- make it so they can't start off screen/in menu bar
  
  is it an issue if plus is a variable that may get recreated halfway through existing?
  make a vector? IF I HIT TWO DOCTORS/ALIENS RIGHT AFTER EACH OTHER, PICTURE DOESN'T GO AWAY
@@ -65,6 +68,31 @@ void MainWindow::checkCollisions(int i)
  
 void MainWindow::handleTimer()
 {
+	gameCounter++;
+	if(gameCounter == 500)
+	{
+		gameCounter = 0;
+
+		if(gameSpeed <= 1)
+		{
+			//stop changing speed here
+		}
+		else if(gameSpeed < 5)
+		{
+			gameSpeed--;
+		}
+		else if(gameSpeed <= 15)
+		{
+			gameSpeed -= 5;
+		}
+		else
+		{
+			gameSpeed -= 10;
+		}
+		timer->setInterval(gameSpeed);
+		
+		
+	}
 	bg->scroll(0, WINDOW_MAX_X);
 	bg2->scroll(0, WINDOW_MAX_X);
 	
@@ -75,38 +103,24 @@ void MainWindow::handleTimer()
 
 	}
 	
-	if(popupImage)
+	for(int i = 0; i < (int)pluses.size(); i++)
 	{
-		if(popupCount == 0)
-		{
-			alreadyPlusPopup = true;
-			scene->addItem(plus);
-		}
-		popupCount++;
-		if(popupCount == 30)
-		{
-			popupImage = false;
-			popupCount = 0;
-			alreadyPlusPopup = false;
-			scene->removeItem(plus);
-		}
-		
+		pluses[i]->incrementC();
 	}
-	if(popupAlienImage)
+	while(pluses.size() > 0 && (pluses.front()->getC()) == 30)
 	{
-		if(popupAlienCount == 0)
-		{
-			alreadyAlienPopup = true;
-			scene->addItem(explosion);
-		}
-		popupAlienCount++;
-		if(popupAlienCount == 30)
-		{
-			popupAlienImage = false;
-			popupAlienCount = 0;
-			alreadyAlienPopup = false;
-			scene->removeItem(explosion);
-		}
+		scene->removeItem(pluses[0]);
+		pluses.pop_front();
+	}
+	
+	for(int i = 0; i < (int)explosions.size(); i++)
+	{
+		explosions[i]->incrementC();
+	}
+	while(explosions.size() > 0 && explosions.front()->getC() == 30)
+	{
+		scene->removeItem(explosions[0]);
+		explosions.pop_front();
 	}
 	
 	if(turtleBool)
@@ -134,6 +148,7 @@ void MainWindow::handleTimer()
 		randThing = rand() % 7;
 		Thing *newThing;
 
+/*
 		if(randThing == 0 || randThing == 1)
 		{
 			newThing = new Coin(coinImage, newX, randY, this);
@@ -154,7 +169,10 @@ void MainWindow::handleTimer()
 		{
 			newThing = new Turtle(turtleImage, newX, randY, this);
 		}
+		*/
 		
+		
+		newThing = new Doctor(doctorImage, newX, randY, this);
 		things.push_back(newThing);
 		scene->addItem(newThing);
 	
@@ -273,7 +291,6 @@ void MainWindow::startGame()
 		gameStarted = true;
 		nameLine->setText(userName);
 		userNameLine->setText("");
-		errors->setText("");
 		livesLine->setText("3");
 		QString stringScore;
 		stringScore = QString::number(score);
@@ -295,11 +312,6 @@ void MainWindow::startGame()
 		this->grabKeyboard();
 		
 	}
-	else
-	{
-		errorsExists = true;
-		errors->setText("Enter a name above!");
-	}
 }
 
 void MainWindow::callPopup()
@@ -311,7 +323,6 @@ void MainWindow::callPopup()
 void MainWindow::cancelPopup()
 {
 	userNameLine->setText("");
-	errors->setText("");
 	popupView->close();
 }
 
@@ -438,6 +449,8 @@ void MainWindow::initializeVariables()
 	invincibleCount = 0;
 	turtleCount = 0;
 	turtleBool = false;
+	gameCounter = 0;
+	gameSpeed = 35;
 }
 
 void MainWindow::createPopup()
@@ -447,16 +460,14 @@ void MainWindow::createPopup()
 	popupLayout = new QFormLayout();
 	popupWindow = new QWidget();
 	popupView->setAlignment(Qt::AlignLeft | Qt::AlignTop);
-	popupView->setGeometry(WINDOW_MAX_X/2 - 80, WINDOW_MAX_Y/2, 300, 120);
-	popupWindow->setGeometry(0, 0, 300 -3, 120 -3);
+	popupView->setGeometry(WINDOW_MAX_X/2 - 80, WINDOW_MAX_Y/2, 300, 90);
+	popupWindow->setGeometry(0, 0, 300 -3, 90 -3);
 	popupNameLabel = new QLabel();
 	popupNameLine = new QLineEdit();
 	popupStart = new QPushButton("Start");
 	popupCancel = new QPushButton("Cancel");
 	userNameLabel = new QLabel("Enter name: ");
 	userNameLine = new QLineEdit();
-	errorsExists = false;
-	errors = new QLineEdit();
 	
 	h1 = new QHBoxLayout();
 	h1->addWidget(userNameLabel);
@@ -466,14 +477,11 @@ void MainWindow::createPopup()
 	h2->addWidget(popupCancel);
 	popupLayout->addItem(h2);
 	popupLayout->addItem(h1);
-	popupLayout->addWidget(errors);
 			
 	//popupLayout->addRow(userNameLabel, userNameLine);
 	//popupLayout->addRow(popupStart, popupCancel);
 	//popupView->setLayout(popupLayout);
 	popupWindow->setLayout(popupLayout);
-	errors->setText("");
-	errors->setReadOnly(true);
 	popupView->setAlignment(Qt::AlignLeft | Qt::AlignTop);
 	popupScene->addWidget(popupWindow);
 	popupView->setWindowTitle( "Start Screen");
@@ -548,11 +556,14 @@ void MainWindow::decreaseLives()
 	livesLine->setText(stringLives);
 	explosion = new Explosion(explosionImage, this);
 	popupAlienImage = true;
-	if(alreadyAlienPopup)
-	{
-		popupAlienCount = 0;
-		scene->removeItem(explosion);
-	}
+	//if(alreadyAlienPopup)
+	//{
+	//	popupAlienCount = 0;
+	//	scene->removeItem(explosion);
+	//}
+	Explosion *ex = new Explosion(explosionImage, this);
+	explosions.push_back(ex);
+	scene->addItem(ex);
 	
 }
 
@@ -564,11 +575,15 @@ void MainWindow::increaseLives()
 	livesLine->setText(stringLives);
 	plus = new PlusPopup(plusImage, this);
 	popupImage = true;
-	if(alreadyPlusPopup)
-	{
-		popupCount = 0;
-		scene->removeItem(plus);
-	}
+	
+	PlusPopup *pl = new PlusPopup(plusImage, this);
+	pluses.push_back(pl);
+	scene->addItem(pl);
+	//if(alreadyPlusPopup)
+	//{
+	//	popupCount = 0;
+	//	scene->removeItem(plus);
+	//}
 }
 
 int MainWindow::getPlayerX()
@@ -606,12 +621,12 @@ void MainWindow::createBackground()
 void MainWindow::slowTimer()
 {
 	turtleBool = true;
-	timer->setInterval(100);
+	timer->setInterval(gameSpeed * 3);
 }
 
 void MainWindow::setTimer()
 {
-	timer->setInterval(35);
+	timer->setInterval(gameSpeed);
 }
 
 /**

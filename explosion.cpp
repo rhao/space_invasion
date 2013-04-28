@@ -13,6 +13,7 @@ Explosion::Explosion(QPixmap *p, MainWindow *w) : QGraphicsPixmapItem(*p)
 	window = w;
 	x = window->getPlayerX() - 80;
 	y = window->getPlayerY() - 80;
+	c = 0;
 	this->setPos(x, y);	
 }
 
@@ -34,6 +35,16 @@ int Explosion::getX()
 int Explosion::getY()
 {
 	return y;
+}
+
+int Explosion::getC()
+{
+	return c;
+}
+
+void Explosion::incrementC()
+{
+	c++;
 }
 
 /**

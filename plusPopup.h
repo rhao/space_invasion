@@ -12,11 +12,14 @@ class PlusPopup : public QGraphicsPixmapItem
 	PlusPopup(QPixmap *, MainWindow *w);
 	int getX();
 	int getY();
+	int getC();
+	void incrementC();
 	~PlusPopup();
 	
 	private:
 	int x;
 	int y;
+	int c;
 	MainWindow *window;
 };
 

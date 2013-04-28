@@ -12,11 +12,14 @@ class Explosion : public QGraphicsPixmapItem
 	Explosion(QPixmap *, MainWindow *w);
 	int getX();
 	int getY();
+	int getC();
+	void incrementC();
 	~Explosion();
 	
 	private:
 	int x;
 	int y;
+	int c;
 	MainWindow *window;
 };
 

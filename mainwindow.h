@@ -27,6 +27,7 @@
 #include <QPalette>
 #include <QGraphicsSceneMouseEvent>
 #include <vector>
+#include <queue>
 #include <QErrorMessage>
 #include "coin.h"
 #include "thing.h"
@@ -89,8 +90,6 @@ private:
 	QLineEdit *popupNameLine;
 	QPushButton *popupStart;
 	QPushButton *popupCancel;
-	QLineEdit *errors;
-	bool errorsExists;
 	QHBoxLayout *h1;
 	QHBoxLayout *h2;
 	
@@ -157,6 +156,8 @@ private:
 	bool alreadyAlienPopup;
 	
 	vector<Thing*> things;
+	deque<PlusPopup*> pluses;
+	deque<Explosion*> explosions;
 	int randY;
 	int randThing;
 	int newX;
@@ -166,8 +167,9 @@ private:
 	int turtleCount;
 	bool turtleBool;
 	
-
-
+	int gameCounter;
+	int gameSpeed;
+	
 public:
 	int game_max_y;
 	int game_min_y;

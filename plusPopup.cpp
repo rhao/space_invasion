@@ -13,6 +13,7 @@ PlusPopup::PlusPopup(QPixmap *p, MainWindow *w) : QGraphicsPixmapItem(*p)
 	window = w;
 	x = WINDOW_MAX_X/2 - 100;
 	y = WINDOW_MAX_Y/2 - 50;
+	c = 0;
 	this->setPos(x, y);	
 }
 
@@ -34,6 +35,16 @@ int PlusPopup::getX()
 int PlusPopup::getY()
 {
 	return y;
+}
+
+int PlusPopup::getC()
+{
+	return c;
+}
+
+void PlusPopup::incrementC()
+{
+	c++;
 }
 
 /**
