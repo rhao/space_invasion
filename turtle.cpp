@@ -2,7 +2,7 @@
 #include "mainwindow.h"
 Turtle::Turtle( QPixmap *pm, int nx, int ny, MainWindow *w ) : Thing( pm, nx, ny, w )
 {
-	vX = 1;
+	vX = 2;
 	vY = 0;
 }
 
@@ -19,4 +19,14 @@ bool Turtle::shouldRemove()
 		return true;
 	}
 	return false;
+}
+
+void Turtle::handleCollision()
+{
+
+}
+
+Turtle::~Turtle()
+{
+
 }

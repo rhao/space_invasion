@@ -11,10 +11,6 @@ Alien::Alien( QPixmap *pm, int nx, int ny, MainWindow *w ) : Thing( pm, nx, ny, 
 void Alien::move()
 {
 	x = x - vX;
-	if(x < 0)
-	{
-		//window->removeCoin(this);
-	}
 	this->setPos(x, y);
 }
 
@@ -25,6 +21,11 @@ bool Alien::shouldRemove()
 		return true;
 	}
 	return false;
+}
+
+void Alien::handleCollision()
+{
+
 }
 
 Alien::~Alien()

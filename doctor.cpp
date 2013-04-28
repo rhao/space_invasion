@@ -23,7 +23,7 @@ void Doctor::move()
 	int maxy = window->game_max_y;
 	x = x - vX;
 	y = y - vY;
-	maxy -= 60;
+	maxy -= window->doctorHeight;
 	if(y < miny)
 	{
 		y = miny;
@@ -44,4 +44,14 @@ bool Doctor::shouldRemove()
 		return true;
 	}
 	return false;
+}
+
+void Doctor::handleCollision()
+{
+
+}
+
+Doctor::~Doctor()
+{
+
 }

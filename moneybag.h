@@ -11,9 +11,10 @@ class MoneyBag: public Thing
 	MoneyBag(QPixmap *pm, int nx, int ny, MainWindow *w);
 	void move();
 	bool shouldRemove();
+	void handleCollision();
 	
 	private:
-	void remove();
+	~MoneyBag();
 };
 
 #endif

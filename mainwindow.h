@@ -54,6 +54,7 @@ public:
 	void show();
 	void removeCoin(Coin *c);
 	void keyPressEvent(QKeyEvent *e);
+	void setScore(int s);
 	
 protected:
 	//void keyPressEvent( QKeyEvent *e );
@@ -138,10 +139,19 @@ private:
 	int randY;
 	int randThing;
 	int newX;
+	
+
 
 public:
 	int game_max_y;
 	int game_min_y;
+	int score;
+	int coinHeight;
+	int alienHeight;
+	int doctorHeight;
+	int moneybagHeight;
+	int turtleHeight;
+	int playerHeight;
 
 public slots:
 	void handleTimer();

@@ -15,7 +15,7 @@ void MoneyBag::move()
 	int maxy = window->game_max_y;
 	x = x - vX;
 	y = y - vY;
-	maxy -= 40;
+	maxy -= window->moneybagHeight;
 	if(y < miny)
 	{
 		y = miny;
@@ -36,4 +36,14 @@ bool MoneyBag::shouldRemove()
 		return true;
 	}
 	return false;
+}
+
+void MoneyBag::handleCollision()
+{
+
+}
+
+MoneyBag::~MoneyBag()
+{
+
 }

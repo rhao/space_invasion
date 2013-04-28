@@ -1,13 +1,15 @@
 #ifndef PLAYER_H
 #define PLAYER_H
 
+class MainWindow;
+
 #include <QGraphicsPixmapItem>
 #include <QPixmap>
 
 class Player : public QGraphicsPixmapItem
 {
 	public:
-	Player(QPixmap *);
+	Player(QPixmap *, MainWindow *w);
 	
 	void moveUp(int window_min);
 	void moveDown(int window_max);
@@ -23,6 +25,7 @@ class Player : public QGraphicsPixmapItem
 	int x;
 	int y;
 	int v;
+	MainWindow *window;
 };
 
 #endif

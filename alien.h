@@ -11,11 +11,10 @@ class Alien: public Thing
 	Alien(QPixmap *pm, int nx, int ny, MainWindow *w);
 	void move();
 	bool shouldRemove();
+	void handleCollision();
 	
 	private:
-	void remove();
 	~Alien();
-	
 };
 
 #endif

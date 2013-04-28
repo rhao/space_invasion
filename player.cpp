@@ -1,5 +1,6 @@
 #include "player.h"
 #include <iostream>
+#include "mainwindow.h"
 
 /**
  * Constructor
@@ -7,12 +8,13 @@
  * @param w Pointer to the mainwindow
  * @return nothing
  */
-Player::Player(QPixmap *p) : QGraphicsPixmapItem(*p)
+Player::Player(QPixmap *p, MainWindow *w) : QGraphicsPixmapItem(*p)
 {
 	x = 250;
 	y = 400;
-	v = 2;
+	v = 5;
 	this->setPos(x, y);
+	window = w;
 }
 
 /**
@@ -78,9 +80,9 @@ void Player::moveUp(int window_min)
 void Player::moveDown(int window_max)
 {
 	//std::cout<<"y: " <<y <<", max: " <<window_max;
-	if(y + v + 70 > window_max)
+	if(y + v + window->playerHeight > window_max)
 	{
-		y = window_max - 70;
+		y = window_max - window->playerHeight;
 	}
 	else
 	{

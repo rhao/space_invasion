@@ -46,3 +46,15 @@ bool Coin::shouldRemove()
 	}
 	return false;
 }
+
+void Coin::handleCollision()
+{
+	int s = window->score;
+	s++;
+	window->setScore(s);
+}
+
+Coin::~Coin()
+{
+
+}

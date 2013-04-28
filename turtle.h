@@ -11,9 +11,10 @@ class Turtle: public Thing
 	Turtle(QPixmap *pm, int nx, int ny, MainWindow *w);
 	void move();
 	bool shouldRemove();
+	void handleCollision();
 	
 	private:
-	void remove();
+	~Turtle();
 };
 
 #endif

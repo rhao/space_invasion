@@ -22,18 +22,21 @@ void MainWindow::handleTimer()
 	bg->scroll(0, WINDOW_MAX_X);
 	bg2->scroll(0, WINDOW_MAX_X);
 	
-	/*
-	c->move();
-	a->move();
-	d->move();
-	mb->move();
-	t->move();
-	*/
-	
-	for(int i = 0; i < things.size(); i++)
+	for(int i = 0; i < (int)things.size(); i++)
 	{
 		things[i]->move();
+		if(p->collidesWithItem(things[i]))
+		{
+			//remove from vector
+			
+			things[i]->handleCollision();
+		}
+
 	}
+	//if(things[i]->shouldRemove())
+	//{
+		//REMOVE FROM VECTOR AFTER OFF SCREEN
+	//}
 	count++;
 
 	if(count % 50 == 0)
@@ -42,7 +45,6 @@ void MainWindow::handleTimer()
 		randY = (rand() % (WINDOW_MAX_Y - game_min_y - 100)) + game_min_y;
 		randThing = rand() % 14;
 		Thing *newThing;
-		/*
 
 		if(randThing <= 5)
 		{
@@ -64,8 +66,7 @@ void MainWindow::handleTimer()
 		{
 			newThing = new Turtle(turtleImage, newX, randY, this);
 		}
-		*/
-		newThing = new Doctor(doctorImage, newX, randY, this);
+		
 		things.push_back(newThing);
 		scene->addItem(newThing);
 	}
@@ -136,20 +137,23 @@ void MainWindow::startGame()
 {
 	userName = userNameLine->text();
 	if(userName != "")
-	{
+	{	
+		things.clear();
 		gameStarted = true;
 		nameLine->setText(userName);
 		userNameLine->setText("");
 		errors->setText("");
 		livesLine->setText("3");
-		pointsLine->setText("0");
+		QString stringScore;
+		stringScore = QString::number(score);
+		pointsLine->setText(stringScore);
 		popupView->close();
 		userName = userNameLine->text();
 		
 		createBackground();
 		playerImage = new QPixmap("images/astronautb.png");
-		*playerImage = playerImage->scaledToHeight(70);
-		p = new Player(playerImage);
+		*playerImage = playerImage->scaledToHeight(playerHeight);
+		p = new Player(playerImage, this);
 		timer->start();
 	
 		scene->addItem(p);
@@ -223,19 +227,19 @@ MainWindow::MainWindow(QMainWindow* parent) : QMainWindow(parent)
 	
 	//setting IMAGES of 5 things!
 	coinImage = new QPixmap("images/coin.png");
-	*coinImage = coinImage->scaledToHeight(30);
+	*coinImage = coinImage->scaledToHeight(coinHeight);
 	
 	alienImage = new QPixmap("images/alienb.png");
-	*alienImage = alienImage->scaledToHeight(60);
+	*alienImage = alienImage->scaledToHeight(alienHeight);
 	
-	doctorImage = new QPixmap("images/doctorb2.png");
-	*doctorImage = doctorImage->scaledToHeight(60);
+	doctorImage = new QPixmap("images/doctorb3.png");
+	*doctorImage = doctorImage->scaledToHeight(doctorHeight);
 	
 	moneybagImage = new QPixmap("images/money-bag.png");
-	*moneybagImage = moneybagImage->scaledToHeight(40);
+	*moneybagImage = moneybagImage->scaledToHeight(moneybagHeight);
 	
 	turtleImage = new QPixmap("images/turtleb.png");
-	*turtleImage = turtleImage->scaledToHeight(45);
+	*turtleImage = turtleImage->scaledToHeight(turtleHeight);
 
 	//This is how we do animation. We use a timer with an interval of 20 milliseconds
 	//We connect the signal from the timer - the timeout() function to a function
@@ -276,6 +280,14 @@ void MainWindow::initializeVariables()
 	count = 0;
 	paused = false;
 	newX = WINDOW_MAX_X + 50;
+	score = 0;
+	coinHeight = 50;
+	alienHeight = 80;
+	doctorHeight = 80;
+	moneybagHeight = 60;
+	turtleHeight = 65;
+	playerHeight = 90;
+	
 }
 
 void MainWindow::createPopup()
@@ -359,6 +371,14 @@ void MainWindow::createOutput()
 void MainWindow::removeCoin(Coin *c)
 {
 	scene->removeItem(c);
+}
+
+void MainWindow::setScore(int s)
+{
+	score = s;
+	QString stringScore;
+	stringScore = QString::number(score);
+	pointsLine->setText(stringScore);
 }
 
 void MainWindow::createBackground()
