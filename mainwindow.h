@@ -40,6 +40,7 @@
 #include "plusPopup.h"
 #include "explosion.h"
 #include "title.h"
+#include "endScreen.h"
 
 
 using namespace std;
@@ -138,6 +139,8 @@ private:
 	Title *titleBackground;
 	QPixmap *titleBackgroundImage;
 	
+	EndScreen *endGame;
+	
 	QPixmap *coinImage;
 	Coin *c;
 	
@@ -166,6 +169,7 @@ private:
 	bool paused;
 	bool alreadyPlusPopup;
 	bool alreadyAlienPopup;
+	bool restarting;
 	
 	vector<Thing*> things;
 	deque<PlusPopup*> pluses;

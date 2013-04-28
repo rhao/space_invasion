@@ -140,6 +140,7 @@ void MainWindow::generateNewThings()
 			newThing = new Turtle(turtleImage, newX, randY, this);
 		}
 		
+		newThing = new Alien(alienImage, newX, randY, this);
 		things.push_back(newThing);
 		scene->addItem(newThing);
 	
@@ -193,7 +194,7 @@ void MainWindow::handleTimer()
 	
 	if(turtleBool)
 	{
-		timer->setInterval(70);
+		timer->setInterval(50);
 		turtleCount++;
 		if(turtleCount == 75)
 		{
@@ -274,6 +275,11 @@ void MainWindow::pauseApp()
  */
 void MainWindow::startGame()
 {
+	while(explosions.size() > 0)
+	{
+		scene->removeItem(explosions[0]);
+		explosions.pop_front();
+	}
 	userName = userNameLine->text();
 	if(userName != "")
 	{	
@@ -298,7 +304,7 @@ void MainWindow::startGame()
 			scene->removeItem(p);
 			scene->removeItem(bg);
 			scene->removeItem(bg2);
-			initializeVariables();
+			
 			pause->setText("Pause");
 		}
 		
@@ -310,7 +316,6 @@ void MainWindow::startGame()
 		stringScore = QString::number(score);
 		pointsLine->setText(stringScore);
 		popupView->close();
-		userName = userNameLine->text();
 		
 		createBackground();
 		playerImage = new QPixmap("images/astronautb.png");
@@ -323,6 +328,15 @@ void MainWindow::startGame()
 	
 		scene->addItem(p);
 		
+		
+		
+		if(restarting)
+		{
+			endGame->close();
+			restarting = false;
+		}
+		
+		initializeVariables();
 		
 		this->grabKeyboard();
 	}
@@ -472,6 +486,7 @@ void MainWindow::initializeVariables()
 	turtleBool = false;
 	gameCounter = 0;
 	gameSpeed = 35;
+	restarting = false;
 }
 
 void MainWindow::createPopup()
@@ -625,7 +640,10 @@ void MainWindow::gameOver()
 	errorMessage.exec();
 	qApp->quit();
 	*/
-	pauseApp();
+	
+	restarting = true;
+	endGame = new EndScreen(userName, score, this);
+	timer->stop();
 }
 
 void MainWindow::createTitle()
