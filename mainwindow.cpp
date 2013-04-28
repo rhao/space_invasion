@@ -294,6 +294,7 @@ void MainWindow::initializeVariables()
 	paused = false;
 	newX = WINDOW_MAX_X + 50;
 	score = 0;
+	lives = 3;
 	coinHeight = 50;
 	alienHeight = 80;
 	doctorHeight = 80;
@@ -400,6 +401,25 @@ void MainWindow::setScore(int s)
 	QString stringScore;
 	stringScore = QString::number(score);
 	pointsLine->setText(stringScore);
+}
+
+void MainWindow::decreaseLives()
+{
+	lives--;
+	QString stringLives;
+	stringLives = QString::number(lives);
+	livesLine->setText(stringLives);
+}
+
+void MainWindow::gameOver()
+{
+/*
+	QErrorMessage errorMessage;
+	errorMessage.showMessage("Game over.");
+	errorMessage.exec();
+	qApp->quit();
+	*/
+	pauseApp();
 }
 
 void MainWindow::createBackground()

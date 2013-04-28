@@ -27,7 +27,7 @@
 #include <QPalette>
 #include <QGraphicsSceneMouseEvent>
 #include <vector>
-#include <map>
+#include <QErrorMessage>
 #include "coin.h"
 #include "thing.h"
 #include "player.h"
@@ -54,6 +54,8 @@ public:
 	void show();
 	void keyPressEvent(QKeyEvent *e);
 	void setScore(int s);
+	void decreaseLives();
+	void gameOver();
 	
 protected:
 	//void keyPressEvent( QKeyEvent *e );
@@ -145,6 +147,7 @@ public:
 	int game_max_y;
 	int game_min_y;
 	int score;
+	int lives;
 	int coinHeight;
 	int alienHeight;
 	int doctorHeight;

@@ -25,7 +25,11 @@ bool Alien::shouldRemove()
 
 void Alien::handleCollision()
 {
-
+	window->decreaseLives();
+	if(window->lives <= 0)
+	{
+		window->gameOver();
+	}
 }
 
 Alien::~Alien()
