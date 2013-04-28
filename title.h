@@ -7,7 +7,7 @@
 class Title : public QGraphicsPixmapItem
 {
 	public:
-	Title(QPixmap*);
+	Title(QPixmap*, int, int);
 	int getX();
 	int getY();
 	~Title();

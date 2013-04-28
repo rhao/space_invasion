@@ -135,6 +135,8 @@ private:
 	
 	Title *title;
 	QPixmap *title1Image;
+	Title *titleBackground;
+	QPixmap *titleBackgroundImage;
 	
 	QPixmap *coinImage;
 	Coin *c;

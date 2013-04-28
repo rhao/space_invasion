@@ -282,15 +282,16 @@ void MainWindow::startGame()
 		if(gameJustStarted)
 		{
 			scene->removeItem(title);
+			scene->removeItem(titleBackground);
 			gameJustStarted = false;
 			
 			view->setLayout(layout);
-		window->setLayout(layout);
-		window->show();
+			window->setLayout(layout);
+			window->show();
 		}
 		
 		if(gameStarted)
-		{
+		{ 
 			for(int i = 0; i < (int)things.size(); i++)
 			{
 				scene->removeItem(things[i]);
@@ -339,6 +340,10 @@ void MainWindow::callPopup()
 
 void MainWindow::cancelPopup()
 {
+	if(gameJustStarted)
+	{
+		qApp->quit();	
+	}
 	userNameLine->setText("");
 	popupView->close();
 }
@@ -478,7 +483,7 @@ void MainWindow::createPopup()
 	popupLayout = new QFormLayout();
 	popupWindow = new QWidget();
 	popupView->setAlignment(Qt::AlignLeft | Qt::AlignTop);
-	popupView->setGeometry(WINDOW_MAX_X/2 - 80, WINDOW_MAX_Y/2 + 160, 300, 90);
+	popupView->setGeometry(WINDOW_MAX_X/2 - 80, WINDOW_MAX_Y/2 + 40, 300, 90);
 	popupWindow->setGeometry(0, 0, 300 -3, 90 -3);
 	popupNameLabel = new QLabel();
 	popupNameLine = new QLineEdit();
@@ -627,10 +632,15 @@ void MainWindow::gameOver()
 
 void MainWindow::createTitle()
 {
-	title1Image = new QPixmap("images/title.png");
-	*title1Image = title1Image->scaledToWidth(WINDOW_MAX_X - 100);
-	title = new Title(title1Image);
+	titleBackgroundImage = new QPixmap("images/background.png");
+	*titleBackgroundImage = titleBackgroundImage->scaled(WINDOW_MAX_X + 5, WINDOW_MAX_Y + 5, Qt::IgnoreAspectRatio, Qt::FastTransformation);
+	titleBackground = new Title(titleBackgroundImage, 0, 0);
+	scene->addItem(titleBackground);
+	title1Image = new QPixmap("images/title2.png");
+	*title1Image = title1Image->scaledToWidth(WINDOW_MAX_X - 50);
+	title = new Title(title1Image, 35, 100);
 	scene->addItem(title);
+
 }
 
 void MainWindow::createBackground()

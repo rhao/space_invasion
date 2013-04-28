@@ -7,10 +7,10 @@
  * @param w Pointer to the mainwindow
  * @return nothing
  */
-Title::Title(QPixmap *p) : QGraphicsPixmapItem(*p)
+Title::Title(QPixmap *p, int x_, int y_) : QGraphicsPixmapItem(*p)
 {
-	x = 50;
-	y = 200;
+	x = x_;
+	y = y_;
 	this->setPos(x, y);
 }
 
