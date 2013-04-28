@@ -61,6 +61,7 @@ public:
 	void gameOver();
 	int getPlayerX();
 	int getPlayerY();
+	void slowTimer();
 	
 protected:
 	//void keyPressEvent( QKeyEvent *e );
@@ -72,6 +73,7 @@ protected:
 	void createBackground();
 	void removeFromVector(Thing*);
 	void checkCollisions(int);
+	void setTimer();
 	
 private:
 	QGraphicsScene *scene;
@@ -160,6 +162,9 @@ private:
 	int newX;
 	
 	int invincibleCount;
+	
+	int turtleCount;
+	bool turtleBool;
 	
 
 

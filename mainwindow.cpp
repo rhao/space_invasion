@@ -103,6 +103,17 @@ void MainWindow::handleTimer()
 		}
 	}
 	
+	if(turtleBool)
+	{
+		turtleCount++;
+		if(turtleCount == 75)
+		{
+			turtleCount = 0;
+			turtleBool = false;
+			setTimer();
+		}
+	}
+	
 	
 	//if(things[i]->shouldRemove())
 	//{
@@ -339,7 +350,8 @@ MainWindow::MainWindow(QMainWindow* parent) : QMainWindow(parent)
 	//We connect the signal from the timer - the timeout() function to a function
 	//of our own - called handleTimer - which is in this same MainWindow class
 	timer = new QTimer(this);
-	timer->setInterval(35);
+	setTimer();
+	
 	
 	//connects
 	connect(timer, SIGNAL(timeout()), this, SLOT(handleTimer()));
@@ -389,6 +401,8 @@ void MainWindow::initializeVariables()
 	alreadyAlienPopup = false;
 	invincible = false;
 	invincibleCount = 0;
+	turtleCount = 0;
+	turtleBool = false;
 }
 
 void MainWindow::createPopup()
@@ -552,6 +566,17 @@ void MainWindow::createBackground()
 	
 	bg2 = new Background(bgImage, WINDOW_MAX_X, game_min_y);
 	scene->addItem(bg2);
+}
+
+void MainWindow::slowTimer()
+{
+	turtleBool = true;
+	timer->setInterval(100);
+}
+
+void MainWindow::setTimer()
+{
+	timer->setInterval(35);
 }
 
 /**

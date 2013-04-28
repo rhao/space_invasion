@@ -23,7 +23,7 @@ bool Turtle::shouldRemove()
 
 void Turtle::handleCollision()
 {
-
+	window->slowTimer();
 }
 
 bool Turtle::isACoin()
