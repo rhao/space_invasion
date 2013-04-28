@@ -13,8 +13,6 @@
  
  update design doc
  
- time it - make sure it speeds up in 90 seconds and eventually becomes unplayable
- 
  * @return nothing
  */
 
@@ -246,6 +244,7 @@ void MainWindow::pauseApp()
  */
 void MainWindow::startGame()
 {
+	
 	while(explosions.size() > 0)
 	{
 		scene->removeItem(explosions[0]);
@@ -289,17 +288,12 @@ void MainWindow::startGame()
 		popupView->close();
 		
 		createBackground();
-		playerImage = new QPixmap("images/astronautb.png");
-		*playerImage = playerImage->scaledToHeight(playerHeight);
-		playerImageBig = new QPixmap("images/astronautb.png");
-		*playerImageBig = playerImage->scaledToHeight(110);
 		p = new Player(playerImage, this);
 		
+		gameSpeed = 35;
+		setTimer();
 		timer->start();
-	
 		scene->addItem(p);
-		
-		
 		
 		if(restarting)
 		{
@@ -375,7 +369,7 @@ MainWindow::MainWindow(QMainWindow* parent) : QMainWindow(parent)
 	view->setWindowTitle( "Space Invasion");
 	
 	
-	//setting IMAGES of 5 things!
+	//setting IMAGES
 	coinImage = new QPixmap("images/coin.png");
 	*coinImage = coinImage->scaledToHeight(coinHeight);
 	
@@ -396,6 +390,17 @@ MainWindow::MainWindow(QMainWindow* parent) : QMainWindow(parent)
 	
 	plusImage = new QPixmap("images/plus.png");
 	*plusImage = plusImage->scaledToHeight(200);
+	
+	playerImage = new QPixmap("images/astronautb.png");
+	*playerImage = playerImage->scaledToHeight(playerHeight);
+	playerImageBig = new QPixmap("images/astronautb.png");
+	*playerImageBig = playerImage->scaledToHeight(110);
+	
+	titleBackgroundImage = new QPixmap("images/background.png");
+	
+	bgImage = new QPixmap("images/stars.jpg");
+	
+	title1Image = new QPixmap("images/title2.png");
 
 	//This is how we do animation. We use a timer with an interval of 20 milliseconds
 	//We connect the signal from the timer - the timeout() function to a function
@@ -619,11 +624,9 @@ void MainWindow::gameOver()
 
 void MainWindow::createTitle()
 {
-	titleBackgroundImage = new QPixmap("images/background.png");
 	*titleBackgroundImage = titleBackgroundImage->scaled(WINDOW_MAX_X + 5, WINDOW_MAX_Y + 5, Qt::IgnoreAspectRatio, Qt::FastTransformation);
 	titleBackground = new Title(titleBackgroundImage, 0, 0);
 	scene->addItem(titleBackground);
-	title1Image = new QPixmap("images/title2.png");
 	*title1Image = title1Image->scaledToWidth(WINDOW_MAX_X - 50);
 	title = new Title(title1Image, 35, 100);
 	scene->addItem(title);
@@ -632,7 +635,7 @@ void MainWindow::createTitle()
 
 void MainWindow::createBackground()
 {
-	bgImage = new QPixmap("images/stars.jpg");
+	
 	*bgImage = bgImage->scaled(WINDOW_MAX_X + 3, game_max_y - game_min_y, Qt::IgnoreAspectRatio, Qt::FastTransformation);
 	bg = new Background(bgImage, 0, game_min_y);
 	scene->addItem(bg);
