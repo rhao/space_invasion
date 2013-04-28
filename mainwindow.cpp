@@ -14,17 +14,13 @@
  
  remove items as they go off screen
  
-//plus one stays if hits 2 doctors at same time
  
  segfaults if i double click on start
  
  grab keyboard x error bad window
  merrick said it seems like an issue that you can't fix with my code, but rather something about 
  qt or the vm
- 
- is it an issue if plus is a variable that may get recreated halfway through existing?
- make a vector? IF I HIT TWO DOCTORS/ALIENS RIGHT AFTER EACH OTHER, PICTURE DOESN'T GO AWAY
- 
+
  need game over something
  
  * @return nothing
@@ -280,11 +276,19 @@ void MainWindow::pauseApp()
  */
 void MainWindow::startGame()
 {
-	view->show();
-	window->show();
 	userName = userNameLine->text();
 	if(userName != "")
 	{	
+		if(gameJustStarted)
+		{
+			scene->removeItem(title);
+			gameJustStarted = false;
+			
+			view->setLayout(layout);
+		window->setLayout(layout);
+		window->show();
+		}
+		
 		if(gameStarted)
 		{
 			for(int i = 0; i < (int)things.size(); i++)
@@ -328,6 +332,7 @@ void MainWindow::startGame()
 
 void MainWindow::callPopup()
 {
+	view->show();
 	popupView->show();
 	popupView->grabKeyboard();
 }
@@ -353,6 +358,7 @@ MainWindow::MainWindow(QMainWindow* parent) : QMainWindow(parent)
 	layout = new QFormLayout();
 	window = new QWidget();
 	gameStarted = false;
+	gameJustStarted = true;
 	
 	initializeVariables();
 	createPopup();
@@ -360,14 +366,12 @@ MainWindow::MainWindow(QMainWindow* parent) : QMainWindow(parent)
 	createOutput();
 	
 	QPalette pal(palette());
-	//pal.setColor(QPalette::Background, QColor(152, 251, 152, 200));
-	//pal.setColor(QPalette::Background, QColor(138, 43, 226, 50));
 	pal.setColor(QPalette::Background, QColor(75, 209, 214, 100));
 	window->setAutoFillBackground(true);
 	window->setPalette(pal);
 	
-	view->setLayout(layout);
-	window->setLayout(layout);
+	//view->setLayout(layout);
+	//window->setLayout(layout);
 	window->setFixedSize(WINDOW_MAX_X-3, game_min_y);
 	
 	view->setAlignment(Qt::AlignLeft | Qt::AlignTop);
@@ -421,6 +425,7 @@ MainWindow::MainWindow(QMainWindow* parent) : QMainWindow(parent)
 	
 	//setFocus();
 	view->setFocus();
+	createTitle();
 	callPopup();
 	//std::cout<<QApplication::focusWidget();
 }
@@ -473,7 +478,7 @@ void MainWindow::createPopup()
 	popupLayout = new QFormLayout();
 	popupWindow = new QWidget();
 	popupView->setAlignment(Qt::AlignLeft | Qt::AlignTop);
-	popupView->setGeometry(WINDOW_MAX_X/2 - 80, WINDOW_MAX_Y/2, 300, 90);
+	popupView->setGeometry(WINDOW_MAX_X/2 - 80, WINDOW_MAX_Y/2 + 160, 300, 90);
 	popupWindow->setGeometry(0, 0, 300 -3, 90 -3);
 	popupNameLabel = new QLabel();
 	popupNameLine = new QLineEdit();
@@ -618,6 +623,14 @@ void MainWindow::gameOver()
 	qApp->quit();
 	*/
 	pauseApp();
+}
+
+void MainWindow::createTitle()
+{
+	title1Image = new QPixmap("images/title.png");
+	*title1Image = title1Image->scaledToWidth(WINDOW_MAX_X - 100);
+	title = new Title(title1Image);
+	scene->addItem(title);
 }
 
 void MainWindow::createBackground()

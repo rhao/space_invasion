@@ -39,6 +39,8 @@
 #include "turtle.h"
 #include "plusPopup.h"
 #include "explosion.h"
+#include "title.h"
+
 
 using namespace std;
 
@@ -78,6 +80,7 @@ protected:
 	void handleGameCounter();
 	void handleGamePopups();
 	void generateNewThings();
+	void createTitle();
 	
 private:
 	QGraphicsScene *scene;
@@ -125,9 +128,13 @@ private:
 	Background *bg;
 	Background *bg2;
 	QPixmap *bgImage;
+	
 	Player *p;
 	QPixmap *playerImage;
 	QPixmap *playerImageBig;
+	
+	Title *title;
+	QPixmap *title1Image;
 	
 	QPixmap *coinImage;
 	Coin *c;
@@ -172,6 +179,7 @@ private:
 	
 	int gameCounter;
 	int gameSpeed;
+	bool gameJustStarted;
 	
 public:
 	int game_max_y;
