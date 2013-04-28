@@ -40,22 +40,22 @@ void MainWindow::handleTimer()
 	{
 	
 		randY = (rand() % (WINDOW_MAX_Y - game_min_y - 100)) + game_min_y;
-		randThing = rand() % 10;
+		randThing = rand() % 14;
 		Thing *newThing;
-		/*
-		if(randThing <= 4)
+
+		if(randThing <= 5)
 		{
 			newThing = new Coin(coinImage, newX, randY, this);
 		}
-		else if(randThing <= 6)
+		else if(randThing <= 8)
 		{
 			newThing = new Alien(alienImage, newX, randY, this);
 		}
-		else if(randThing == 7)
+		else if(randThing <= 10)
 		{
 			newThing = new Doctor(doctorImage, newX, randY, this);
 		}
-		else if(randThing == 8)
+		else if(randThing <= 12)
 		{
 			newThing = new MoneyBag(moneybagImage, newX, randY, this);
 		}
@@ -63,8 +63,6 @@ void MainWindow::handleTimer()
 		{
 			newThing = new Turtle(turtleImage, newX, randY, this);
 		}
-		*/
-		newThing = new Doctor(doctorImage, newX, randY, this);
 		things.push_back(newThing);
 		scene->addItem(newThing);
 	}
@@ -293,7 +291,7 @@ void MainWindow::initializeVariables()
 	mousePressed = false;
 	count = 0;
 	paused = false;
-	newX = WINDOW_MAX_X + 100;
+	newX = WINDOW_MAX_X + 50;
 }
 
 void MainWindow::createPopup()

@@ -2,7 +2,7 @@
 #include "mainwindow.h"
 Turtle::Turtle( QPixmap *pm, int nx, int ny, MainWindow *w ) : Thing( pm, nx, ny, w )
 {
-	vX = 1; //keep same as background's v
+	vX = 1;
 	vY = 0;
 }
 
