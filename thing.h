@@ -14,8 +14,8 @@ class Thing: public QGraphicsPixmapItem
 	protected: //Every thing has a origin and a velocity – maybe 0
 	int x;
 	int y;
-	int vX;
-	int vY;
+	double vX;
+	double vY;
 	QPixmap *pixMap; //Good idea. Explain later.
 	
 	public:

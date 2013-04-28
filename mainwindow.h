@@ -26,6 +26,8 @@
 #include <QPixmap>
 #include <QPalette>
 #include <QGraphicsSceneMouseEvent>
+#include <vector>
+#include <map>
 #include "coin.h"
 #include "thing.h"
 #include "player.h"
@@ -34,6 +36,8 @@
 #include "doctor.h"
 #include "moneybag.h"
 #include "turtle.h"
+
+using namespace std;
 
 #define WINDOW_MAX_X 1200
 #define WINDOW_MAX_Y 640
@@ -127,7 +131,13 @@ private:
 	Turtle *t;
 	
 	bool mousePressed;
-	int moveCount;
+	int count;
+	bool paused;
+	
+	vector<Thing*> things;
+	int randY;
+	int randThing;
+	int newX;
 
 public:
 	int game_max_y;

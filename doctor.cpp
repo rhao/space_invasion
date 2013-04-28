@@ -3,8 +3,16 @@
 
 Doctor::Doctor( QPixmap *pm, int nx, int ny, MainWindow *w ) : Thing( pm, nx, ny, w )
 {
-	vX = 3; //keep same as background's v
-	vY = -5;
+	vX = 3;
+	int vRand = rand() % 2;
+	if(vRand == 1)
+	{
+		vY = 5;
+	}
+	else if(vRand == 0)
+	{
+		vY = -5;
+	}
 }
 
 void Doctor::move()

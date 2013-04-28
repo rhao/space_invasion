@@ -12,6 +12,9 @@
  get rid of player image, set player coordinates, set explosion image to that location,
  recreate player
  
+ change velocities to rand
+ make it so they can't start off screen/in menu bar
+ 
  * @return nothing
  */
 void MainWindow::handleTimer()
@@ -19,28 +22,52 @@ void MainWindow::handleTimer()
 	bg->scroll(0, WINDOW_MAX_X);
 	bg2->scroll(0, WINDOW_MAX_X);
 	
+	/*
 	c->move();
 	a->move();
 	d->move();
 	mb->move();
 	t->move();
-	moveCount++;
+	*/
+	
+	for(int i = 0; i < things.size(); i++)
+	{
+		things[i]->move();
+	}
+	count++;
 
-	
-	
-	/**
-	if(mousePressed)
+	if(count%25 == 0)
 	{
-		p->moveUp(game_min_y);
-	}
-	else if(moveCount == 15)
-	{
-		moveCount = 0;
-		p->moveDown(game_min_y);
-	}
-	**/
 	
-	
+		randY = (rand() % (WINDOW_MAX_Y - game_min_y - 100)) + game_min_y;
+		randThing = rand() % 10;
+		Thing *newThing;
+		/*
+		if(randThing <= 4)
+		{
+			newThing = new Coin(coinImage, newX, randY, this);
+		}
+		else if(randThing <= 6)
+		{
+			newThing = new Alien(alienImage, newX, randY, this);
+		}
+		else if(randThing == 7)
+		{
+			newThing = new Doctor(doctorImage, newX, randY, this);
+		}
+		else if(randThing == 8)
+		{
+			newThing = new MoneyBag(moneybagImage, newX, randY, this);
+		}
+		else
+		{
+			newThing = new Turtle(turtleImage, newX, randY, this);
+		}
+		*/
+		newThing = new Alien(alienImage, newX, randY, this);
+		things.push_back(newThing);
+		scene->addItem(newThing);
+	}
 }
 
 /**
@@ -56,33 +83,24 @@ void MainWindow::keyPressEvent(QKeyEvent *e)
 	switch(e->key())
 	{
 		case Qt::Key_Up:
-			std::cout<<"Up\n";
-			p->moveUp(game_min_y);
-			p->moveUp(game_min_y);
-			p->moveUp(game_min_y);
+			if(!paused)
+			{
+				p->moveUp(game_min_y);
+				p->moveUp(game_min_y);
+				p->moveUp(game_min_y);
+			}
 			break;
 		case Qt::Key_Down:
-			std::cout<<"Down\n";
-			p->moveDown(game_max_y);
-			p->moveDown(game_max_y);
-			p->moveDown(game_max_y);
+			if(!paused)
+			{
+				p->moveDown(game_max_y);
+				p->moveDown(game_max_y);
+				p->moveDown(game_max_y);
+			}
 			break;
 		default:
 			QWidget::keyPressEvent(e);
 	}
-	
-	/**
-	if(e->key() == Qt::Key_Q)
-	{
-		std::cout<<"Up\n";
-		//p->moveUp();
-	}
-	else if(e->key() == Qt::Key_Down)
-	{
-		std::cout<<"Down\n";
-		//p->moveDown();
-	}
-	**/
 }
 
  
@@ -94,18 +112,18 @@ void MainWindow::keyPressEvent(QKeyEvent *e)
  */
 void MainWindow::pauseApp()
 {
-	//p->moveDown(game_max_y);
-	p->moveUp(game_min_y);
-/**
 	if(timer->isActive())
 	{
 		timer->stop();
+		paused = !paused;
+		pause->setText("Resume");
 	}
 	else
 	{
 		timer->start();
+		paused = !paused;
+		pause->setText("Pause");
 	}
-	**/
 }
 
 /**
@@ -136,6 +154,7 @@ void MainWindow::startGame()
 	
 		scene->addItem(p);
 		
+		/*
 		c = new Coin(coinImage, WINDOW_MAX_X - 50, 300, this);
 		scene->addItem(c);
 		
@@ -150,6 +169,8 @@ void MainWindow::startGame()
 		
 		t = new Turtle(turtleImage, WINDOW_MAX_X, WINDOW_MAX_Y-45, this);
 		scene->addItem(t);
+		
+		*/
 		
 		this->grabKeyboard();
 		
@@ -270,7 +291,9 @@ void MainWindow::initializeVariables()
 	game_max_y = WINDOW_MAX_Y;
 	game_min_y = WINDOW_MAX_Y/5 - 20;
 	mousePressed = false;
-	moveCount = 0;
+	count = 0;
+	paused = false;
+	newX = WINDOW_MAX_X + 100;
 }
 
 void MainWindow::createPopup()
