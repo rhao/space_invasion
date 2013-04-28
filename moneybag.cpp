@@ -40,7 +40,15 @@ bool MoneyBag::shouldRemove()
 
 void MoneyBag::handleCollision()
 {
+	int s = window->score;
+	s += 50;
+	window->setScore(s);
+	window->invincible = true;
+}
 
+bool MoneyBag::isACoin()
+{
+	return false;
 }
 
 MoneyBag::~MoneyBag()

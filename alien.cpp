@@ -32,6 +32,11 @@ void Alien::handleCollision()
 	}
 }
 
+bool Alien::isACoin()
+{
+	return false;
+}
+
 Alien::~Alien()
 {
 

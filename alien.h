@@ -12,6 +12,7 @@ class Alien: public Thing
 	void move();
 	bool shouldRemove();
 	void handleCollision();
+	bool isACoin();
 	
 	private:
 	~Alien();

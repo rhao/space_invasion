@@ -71,6 +71,7 @@ protected:
 	void createOutput();
 	void createBackground();
 	void removeFromVector(Thing*);
+	void checkCollisions(int);
 	
 private:
 	QGraphicsScene *scene;
@@ -122,6 +123,7 @@ private:
 	QPixmap *bgImage;
 	Player *p;
 	QPixmap *playerImage;
+	QPixmap *playerImageBig;
 	
 	QPixmap *coinImage;
 	Coin *c;
@@ -157,6 +159,8 @@ private:
 	int randThing;
 	int newX;
 	
+	int invincibleCount;
+	
 
 
 public:
@@ -170,6 +174,7 @@ public:
 	int moneybagHeight;
 	int turtleHeight;
 	int playerHeight;
+	bool invincible;
 
 public slots:
 	void handleTimer();

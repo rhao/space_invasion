@@ -11,6 +11,7 @@ class Thing: public QGraphicsPixmapItem
 	virtual void move() = 0; //virtual function. Class Thing is abstract. For a reason.
 	virtual bool shouldRemove() = 0;
 	virtual void handleCollision() = 0;
+	virtual bool isACoin() = 0;
 	
 	protected: //Every thing has a origin and a velocity – maybe 0
 	int x;

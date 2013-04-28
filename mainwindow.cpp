@@ -20,6 +20,43 @@
  
  * @return nothing
  */
+ 
+ 
+void MainWindow::checkCollisions(int i)
+{
+	if(invincible)
+	{
+		if(invincibleCount == 0)
+		{
+			p->setPixmap(*playerImageBig);
+			playerHeight = 110;
+		}
+		invincibleCount++;
+		if(invincibleCount == 3000)
+		{
+			p->setPixmap(*playerImage);
+			invincible = false;
+			invincibleCount = 0;
+			playerHeight = 90;
+		}
+		if(things[i]->isACoin() && p->collidesWithItem(things[i]))
+		{
+			things[i]->handleCollision();
+			scene->removeItem(things[i]);
+			removeFromVector(things[i]);
+		}
+	}
+	else
+	{
+		if(p->collidesWithItem(things[i]))
+		{
+			things[i]->handleCollision();
+			scene->removeItem(things[i]);
+			removeFromVector(things[i]);
+		}
+	}
+}
+ 
 void MainWindow::handleTimer()
 {
 	bg->scroll(0, WINDOW_MAX_X);
@@ -28,12 +65,7 @@ void MainWindow::handleTimer()
 	for(int i = 0; i < (int)things.size(); i++)
 	{
 		things[i]->move();
-		if(p->collidesWithItem(things[i]))
-		{
-			things[i]->handleCollision();
-			scene->removeItem(things[i]);
-			removeFromVector(things[i]);
-		}
+		checkCollisions(i);
 
 	}
 	
@@ -206,7 +238,10 @@ void MainWindow::startGame()
 		createBackground();
 		playerImage = new QPixmap("images/astronautb.png");
 		*playerImage = playerImage->scaledToHeight(playerHeight);
+		playerImageBig = new QPixmap("images/astronautb.png");
+		*playerImageBig = playerImage->scaledToHeight(110);
 		p = new Player(playerImage, this);
+		
 		timer->start();
 	
 		scene->addItem(p);
@@ -352,6 +387,8 @@ void MainWindow::initializeVariables()
 	popupAlienCount = 0;
 	alreadyPlusPopup = false;
 	alreadyAlienPopup = false;
+	invincible = false;
+	invincibleCount = 0;
 }
 
 void MainWindow::createPopup()

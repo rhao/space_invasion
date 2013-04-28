@@ -53,6 +53,11 @@ void Coin::handleCollision()
 	window->setScore(s);
 }
 
+bool Coin::isACoin()
+{
+	return true;
+}
+
 Coin::~Coin()
 {
 

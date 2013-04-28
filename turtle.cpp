@@ -26,6 +26,11 @@ void Turtle::handleCollision()
 
 }
 
+bool Turtle::isACoin()
+{
+	return false;
+}
+
 Turtle::~Turtle()
 {
 

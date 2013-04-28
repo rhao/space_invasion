@@ -51,6 +51,11 @@ void Doctor::handleCollision()
 	window->increaseLives();
 }
 
+bool Doctor::isACoin()
+{
+	return false;
+}
+
 Doctor::~Doctor()
 {
 
