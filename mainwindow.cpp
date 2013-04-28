@@ -36,12 +36,13 @@ void MainWindow::handleTimer()
 	}
 	count++;
 
-	if(count%25 == 0)
+	if(count % 50 == 0)
 	{
 	
 		randY = (rand() % (WINDOW_MAX_Y - game_min_y - 100)) + game_min_y;
 		randThing = rand() % 14;
 		Thing *newThing;
+		/*
 
 		if(randThing <= 5)
 		{
@@ -63,6 +64,8 @@ void MainWindow::handleTimer()
 		{
 			newThing = new Turtle(turtleImage, newX, randY, this);
 		}
+		*/
+		newThing = new Doctor(doctorImage, newX, randY, this);
 		things.push_back(newThing);
 		scene->addItem(newThing);
 	}
@@ -144,31 +147,12 @@ void MainWindow::startGame()
 		userName = userNameLine->text();
 		
 		createBackground();
-		playerImage = new QPixmap("images/astronaut.jpg");
+		playerImage = new QPixmap("images/astronautb.png");
 		*playerImage = playerImage->scaledToHeight(70);
 		p = new Player(playerImage);
 		timer->start();
-		//p->setPos(500, 500);
 	
 		scene->addItem(p);
-		
-		/*
-		c = new Coin(coinImage, WINDOW_MAX_X - 50, 300, this);
-		scene->addItem(c);
-		
-		a = new Alien(alienImage, WINDOW_MAX_X - 75, 400, this);
-		scene->addItem(a);
-		
-		d = new Doctor(doctorImage, WINDOW_MAX_X, WINDOW_MAX_Y -100, this);
-		scene->addItem(d);
-		
-		mb = new MoneyBag(moneybagImage, WINDOW_MAX_X, 250, this);
-		scene->addItem(mb);
-		
-		t = new Turtle(turtleImage, WINDOW_MAX_X, WINDOW_MAX_Y-45, this);
-		scene->addItem(t);
-		
-		*/
 		
 		this->grabKeyboard();
 		
@@ -241,16 +225,16 @@ MainWindow::MainWindow(QMainWindow* parent) : QMainWindow(parent)
 	coinImage = new QPixmap("images/coin.png");
 	*coinImage = coinImage->scaledToHeight(30);
 	
-	alienImage = new QPixmap("images/alien2.jpg");
+	alienImage = new QPixmap("images/alienb.png");
 	*alienImage = alienImage->scaledToHeight(60);
 	
-	doctorImage = new QPixmap("images/doctor.jpg");
+	doctorImage = new QPixmap("images/doctorb2.png");
 	*doctorImage = doctorImage->scaledToHeight(60);
 	
 	moneybagImage = new QPixmap("images/money-bag.png");
 	*moneybagImage = moneybagImage->scaledToHeight(40);
 	
-	turtleImage = new QPixmap("images/spaceturtle.gif");
+	turtleImage = new QPixmap("images/turtleb.png");
 	*turtleImage = turtleImage->scaledToHeight(45);
 
 	//This is how we do animation. We use a timer with an interval of 20 milliseconds

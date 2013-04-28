@@ -8,8 +8,6 @@ Turtle::Turtle( QPixmap *pm, int nx, int ny, MainWindow *w ) : Thing( pm, nx, ny
 
 void Turtle::move()
 {
-	int miny = window->game_min_y;
-	int maxy = window->game_max_y;
 	x = x - vX;
 	this->setPos(x, y);
 }

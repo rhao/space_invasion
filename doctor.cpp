@@ -3,17 +3,17 @@
 
 Doctor::Doctor( QPixmap *pm, int nx, int ny, MainWindow *w ) : Thing( pm, nx, ny, w )
 {
-	//doctor x velocity is between 2 and 5
-	vX = (double)((rand() % 30))/10 + 2;
-	//doctor yvelocity is either 5 or -5
+	//doctor x velocity is between 2 and 4
+	vX = (double)((rand() % 20))/10 + 2;
+	//doctor yvelocity is either 4 or -4
 	int vRand = rand() % 2;
 	if(vRand == 1)
 	{
-		vY = 5;
+		vY = 4;
 	}
 	else if(vRand == 0)
 	{
-		vY = -5;
+		vY = -4;
 	}
 }
 
