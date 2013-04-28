@@ -19,7 +19,6 @@ Coin::Coin( QPixmap *pm, int nx, int ny, MainWindow *w) : Thing( pm, nx, ny, w )
 void Coin::move()
 {
 	int miny = window->game_min_y;
-	int maxy = window->game_max_y;
 	//coins fall off bottom of screen, bounce off top
 	if(y < miny)
 	{
@@ -50,7 +49,7 @@ bool Coin::shouldRemove()
 void Coin::handleCollision()
 {
 	int s = window->score;
-	s++;
+	s += 10;
 	window->setScore(s);
 }
 

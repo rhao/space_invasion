@@ -27,15 +27,16 @@ void MainWindow::handleTimer()
 		things[i]->move();
 		if(p->collidesWithItem(things[i]))
 		{
-			//remove from vector
-			
 			things[i]->handleCollision();
+			scene->removeItem(things[i]);
+			removeFromVector(things[i]);
 		}
 
 	}
 	//if(things[i]->shouldRemove())
 	//{
 		//REMOVE FROM VECTOR AFTER OFF SCREEN
+		//change money bag - gains you more points (100?) and makes invincible
 	//}
 	count++;
 
@@ -138,7 +139,20 @@ void MainWindow::startGame()
 	userName = userNameLine->text();
 	if(userName != "")
 	{	
-		things.clear();
+		if(gameStarted)
+		{
+			for(int i = 0; i < (int)things.size(); i++)
+			{
+				scene->removeItem(things[i]);
+			}
+			things.clear();
+			scene->removeItem(p);
+			scene->removeItem(bg);
+			scene->removeItem(bg2);
+			initializeVariables();
+			pause->setText("Pause");
+		}
+		
 		gameStarted = true;
 		nameLine->setText(userName);
 		userNameLine->setText("");
@@ -276,7 +290,6 @@ void MainWindow::initializeVariables()
 {
 	game_max_y = WINDOW_MAX_Y;
 	game_min_y = WINDOW_MAX_Y/5 - 20;
-	mousePressed = false;
 	count = 0;
 	paused = false;
 	newX = WINDOW_MAX_X + 50;
@@ -287,7 +300,6 @@ void MainWindow::initializeVariables()
 	moneybagHeight = 60;
 	turtleHeight = 65;
 	playerHeight = 90;
-	
 }
 
 void MainWindow::createPopup()
@@ -368,9 +380,18 @@ void MainWindow::createOutput()
 
 }
 
-void MainWindow::removeCoin(Coin *c)
+void MainWindow::removeFromVector(Thing *t)
 {
-	scene->removeItem(c);
+	int index = 0;
+	for(int i = 0; i < (int)things.size(); i++)
+	{
+		if(things[i] == t)
+		{
+			index = i;
+		}
+	}
+	things[index] = things.back();
+	things.pop_back();
 }
 
 void MainWindow::setScore(int s)

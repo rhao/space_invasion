@@ -52,7 +52,6 @@ public:
 	MainWindow(QMainWindow *parent = 0);
 	~MainWindow();
 	void show();
-	void removeCoin(Coin *c);
 	void keyPressEvent(QKeyEvent *e);
 	void setScore(int s);
 	
@@ -64,6 +63,7 @@ protected:
 	void createButtons();
 	void createOutput();
 	void createBackground();
+	void removeFromVector(Thing*);
 	
 private:
 	QGraphicsScene *scene;
@@ -131,7 +131,6 @@ private:
 	QPixmap *turtleImage;
 	Turtle *t;
 	
-	bool mousePressed;
 	int count;
 	bool paused;
 	
