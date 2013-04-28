@@ -15,6 +15,9 @@
  change velocities to rand
  make it so they can't start off screen/in menu bar
  
+ is it an issue if plus is a variable that may get recreated halfway through existing?
+ make a vector? IF I HIT TWO DOCTORS/ALIENS RIGHT AFTER EACH OTHER, PICTURE DOESN'T GO AWAY
+ 
  * @return nothing
  */
 void MainWindow::handleTimer()
@@ -33,6 +36,42 @@ void MainWindow::handleTimer()
 		}
 
 	}
+	
+	if(popupImage)
+	{
+		if(popupCount == 0)
+		{
+			alreadyPlusPopup = true;
+			scene->addItem(plus);
+		}
+		popupCount++;
+		if(popupCount == 30)
+		{
+			popupImage = false;
+			popupCount = 0;
+			alreadyPlusPopup = false;
+			scene->removeItem(plus);
+		}
+		
+	}
+	if(popupAlienImage)
+	{
+		if(popupAlienCount == 0)
+		{
+			alreadyAlienPopup = true;
+			scene->addItem(explosion);
+		}
+		popupAlienCount++;
+		if(popupAlienCount == 30)
+		{
+			popupAlienImage = false;
+			popupAlienCount = 0;
+			alreadyAlienPopup = false;
+			scene->removeItem(explosion);
+		}
+	}
+	
+	
 	//if(things[i]->shouldRemove())
 	//{
 		//REMOVE FROM VECTOR AFTER OFF SCREEN
@@ -254,6 +293,12 @@ MainWindow::MainWindow(QMainWindow* parent) : QMainWindow(parent)
 	
 	turtleImage = new QPixmap("images/turtleb.png");
 	*turtleImage = turtleImage->scaledToHeight(turtleHeight);
+	
+	explosionImage = new QPixmap("images/explosion.png");
+	*explosionImage = explosionImage->scaledToHeight(200);
+	
+	plusImage = new QPixmap("images/plus.png");
+	*plusImage = plusImage->scaledToHeight(200);
 
 	//This is how we do animation. We use a timer with an interval of 20 milliseconds
 	//We connect the signal from the timer - the timeout() function to a function
@@ -301,6 +346,12 @@ void MainWindow::initializeVariables()
 	moneybagHeight = 60;
 	turtleHeight = 65;
 	playerHeight = 90;
+	popupCount = 0;
+	popupImage = false;
+	popupAlienImage = false;
+	popupAlienCount = 0;
+	alreadyPlusPopup = false;
+	alreadyAlienPopup = false;
 }
 
 void MainWindow::createPopup()
@@ -409,6 +460,39 @@ void MainWindow::decreaseLives()
 	QString stringLives;
 	stringLives = QString::number(lives);
 	livesLine->setText(stringLives);
+	explosion = new Explosion(explosionImage, this);
+	popupAlienImage = true;
+	if(alreadyAlienPopup)
+	{
+		popupAlienCount = 0;
+		scene->removeItem(explosion);
+	}
+	
+}
+
+void MainWindow::increaseLives()
+{
+	lives++;
+	QString stringLives;
+	stringLives = QString::number(lives);
+	livesLine->setText(stringLives);
+	plus = new PlusPopup(plusImage, this);
+	popupImage = true;
+	if(alreadyPlusPopup)
+	{
+		popupCount = 0;
+		scene->removeItem(plus);
+	}
+}
+
+int MainWindow::getPlayerX()
+{
+	return p->getX();
+}
+
+int MainWindow::getPlayerY()
+{
+	return p->getY();
 }
 
 void MainWindow::gameOver()

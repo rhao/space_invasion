@@ -48,7 +48,7 @@ bool Doctor::shouldRemove()
 
 void Doctor::handleCollision()
 {
-
+	window->increaseLives();
 }
 
 Doctor::~Doctor()

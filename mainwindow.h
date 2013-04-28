@@ -36,6 +36,8 @@
 #include "doctor.h"
 #include "moneybag.h"
 #include "turtle.h"
+#include "plusPopup.h"
+#include "explosion.h"
 
 using namespace std;
 
@@ -55,7 +57,10 @@ public:
 	void keyPressEvent(QKeyEvent *e);
 	void setScore(int s);
 	void decreaseLives();
+	void increaseLives();
 	void gameOver();
+	int getPlayerX();
+	int getPlayerY();
 	
 protected:
 	//void keyPressEvent( QKeyEvent *e );
@@ -133,8 +138,19 @@ private:
 	QPixmap *turtleImage;
 	Turtle *t;
 	
+	QPixmap *explosionImage;
+	QPixmap *plusImage;
+	PlusPopup *plus;
+	Explosion *explosion;
+	
 	int count;
+	int popupCount;
+	bool popupImage;
+	bool popupAlienImage;
+	int popupAlienCount;
 	bool paused;
+	bool alreadyPlusPopup;
+	bool alreadyAlienPopup;
 	
 	vector<Thing*> things;
 	int randY;
