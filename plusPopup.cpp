@@ -2,9 +2,6 @@
 #include <iostream>
 #include "mainwindow.h"
 
-//seg faults if hits monster first
-//plus one stays if hits 2 doctors at same time
-
 /**
  * Constructor
  *

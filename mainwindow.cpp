@@ -5,18 +5,24 @@
  * Performs appropriate actions every time timer is called.
  *
  
+ slowly make more items/speed up
+ 
+ //seg faults if hits monster first
+//plus one stays if hits 2 doctors at same time
+ 
+ segfaults if i double click on start
+ 
  grab keyboard x error bad window
  merrick said it seems like an issue that you can't fix with my code, but rather something about 
  qt or the vm
- 
- get rid of player image, set player coordinates, set explosion image to that location,
- recreate player
  
  change velocities to rand
  make it so they can't start off screen/in menu bar
  
  is it an issue if plus is a variable that may get recreated halfway through existing?
  make a vector? IF I HIT TWO DOCTORS/ALIENS RIGHT AFTER EACH OTHER, PICTURE DOESN'T GO AWAY
+ 
+ need game over something
  
  * @return nothing
  */
@@ -124,7 +130,35 @@ void MainWindow::handleTimer()
 
 	if(count % 50 == 0)
 	{
+		randY = (rand() % (WINDOW_MAX_Y - game_min_y - 100)) + game_min_y;
+		randThing = rand() % 7;
+		Thing *newThing;
+
+		if(randThing == 0 || randThing == 1)
+		{
+			newThing = new Coin(coinImage, newX, randY, this);
+		}
+		else if(randThing == 2 || randThing == 3)
+		{
+			newThing = new Alien(alienImage, newX, randY, this);
+		}
+		else if(randThing == 4)
+		{
+			newThing = new Doctor(doctorImage, newX, randY, this);
+		}
+		else if(randThing == 5)
+		{
+			newThing = new MoneyBag(moneybagImage, newX, randY, this);
+		}
+		else
+		{
+			newThing = new Turtle(turtleImage, newX, randY, this);
+		}
+		
+		things.push_back(newThing);
+		scene->addItem(newThing);
 	
+	/*
 		randY = (rand() % (WINDOW_MAX_Y - game_min_y - 100)) + game_min_y;
 		randThing = rand() % 14;
 		Thing *newThing;
@@ -152,6 +186,7 @@ void MainWindow::handleTimer()
 		
 		things.push_back(newThing);
 		scene->addItem(newThing);
+		*/
 	}
 }
 
