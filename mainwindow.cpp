@@ -66,7 +66,7 @@ void MainWindow::checkCollisions(int i)
 	}
 }
  
-void MainWindow::handleTimer()
+void MainWindow::handleGameCounter()
 {
 	gameCounter++;
 	if(gameCounter == 500)
@@ -90,19 +90,11 @@ void MainWindow::handleTimer()
 			gameSpeed -= 10;
 		}
 		timer->setInterval(gameSpeed);
-		
-		
 	}
-	bg->scroll(0, WINDOW_MAX_X);
-	bg2->scroll(0, WINDOW_MAX_X);
-	
-	for(int i = 0; i < (int)things.size(); i++)
-	{
-		things[i]->move();
-		checkCollisions(i);
+} 
 
-	}
-	
+void MainWindow::handleGamePopups()
+{
 	for(int i = 0; i < (int)pluses.size(); i++)
 	{
 		pluses[i]->incrementC();
@@ -122,24 +114,10 @@ void MainWindow::handleTimer()
 		scene->removeItem(explosions[0]);
 		explosions.pop_front();
 	}
-	
-	if(turtleBool)
-	{
-		turtleCount++;
-		if(turtleCount == 75)
-		{
-			turtleCount = 0;
-			turtleBool = false;
-			setTimer();
-		}
-	}
-	
-	
-	//if(things[i]->shouldRemove())
-	//{
-		//REMOVE FROM VECTOR AFTER OFF SCREEN
-		//change money bag - gains you more points (100?) and makes invincible
-	//}
+}
+
+void MainWindow::generateNewThings()
+{
 	count++;
 
 	if(count % 50 == 0)
@@ -148,7 +126,6 @@ void MainWindow::handleTimer()
 		randThing = rand() % 7;
 		Thing *newThing;
 
-/*
 		if(randThing == 0 || randThing == 1)
 		{
 			newThing = new Coin(coinImage, newX, randY, this);
@@ -169,10 +146,7 @@ void MainWindow::handleTimer()
 		{
 			newThing = new Turtle(turtleImage, newX, randY, this);
 		}
-		*/
 		
-		
-		newThing = new Doctor(doctorImage, newX, randY, this);
 		things.push_back(newThing);
 		scene->addItem(newThing);
 	
@@ -206,6 +180,41 @@ void MainWindow::handleTimer()
 		scene->addItem(newThing);
 		*/
 	}
+}
+
+void MainWindow::handleTimer()
+{
+	handleGameCounter();
+	
+	bg->scroll(0, WINDOW_MAX_X);
+	bg2->scroll(0, WINDOW_MAX_X);
+	
+	for(int i = 0; i < (int)things.size(); i++)
+	{
+		things[i]->move();
+		checkCollisions(i);
+
+	}
+	
+	handleGamePopups();
+	
+	if(turtleBool)
+	{
+		turtleCount++;
+		if(turtleCount == 75)
+		{
+			turtleCount = 0;
+			turtleBool = false;
+			setTimer();
+		}
+	}
+	
+	//if(things[i]->shouldRemove())
+	//{
+		//REMOVE FROM VECTOR AFTER OFF SCREEN
+		//change money bag - gains you more points (100?) and makes invincible
+	//}
+	generateNewThings();
 }
 
 /**
@@ -271,6 +280,8 @@ void MainWindow::pauseApp()
  */
 void MainWindow::startGame()
 {
+	view->show();
+	window->show();
 	userName = userNameLine->text();
 	if(userName != "")
 	{	
@@ -309,6 +320,7 @@ void MainWindow::startGame()
 	
 		scene->addItem(p);
 		
+		
 		this->grabKeyboard();
 		
 	}
@@ -316,8 +328,8 @@ void MainWindow::startGame()
 
 void MainWindow::callPopup()
 {
-	popupView->grabKeyboard();
 	popupView->show();
+	popupView->grabKeyboard();
 }
 
 void MainWindow::cancelPopup()
@@ -409,6 +421,7 @@ MainWindow::MainWindow(QMainWindow* parent) : QMainWindow(parent)
 	
 	//setFocus();
 	view->setFocus();
+	callPopup();
 	//std::cout<<QApplication::focusWidget();
 }
 
@@ -420,8 +433,8 @@ MainWindow::MainWindow(QMainWindow* parent) : QMainWindow(parent)
 void MainWindow::show()
 {
 	//This is how we get our view displayed.
-	window->show();
-	view->show();
+	//view->show();
+	popupView->show();
 }
 
 void MainWindow::initializeVariables()

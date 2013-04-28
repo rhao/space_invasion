@@ -75,6 +75,9 @@ protected:
 	void removeFromVector(Thing*);
 	void checkCollisions(int);
 	void setTimer();
+	void handleGameCounter();
+	void handleGamePopups();
+	void generateNewThings();
 	
 private:
 	QGraphicsScene *scene;
