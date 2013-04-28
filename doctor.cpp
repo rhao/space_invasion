@@ -3,7 +3,10 @@
 
 Doctor::Doctor( QPixmap *pm, int nx, int ny, MainWindow *w ) : Thing( pm, nx, ny, w )
 {
-	vX = 3;
+	//doctor x velocity is between 2 and 5
+	vX = (double)((rand() % 30))/10 + 2;
+	//doctor yvelocity is either 5 or -5
+	
 	int vRand = rand() % 2;
 	if(vRand == 1)
 	{
@@ -13,6 +16,7 @@ Doctor::Doctor( QPixmap *pm, int nx, int ny, MainWindow *w ) : Thing( pm, nx, ny
 	{
 		vY = -5;
 	}
+	cout<<vX<<", " <<vY <<" ";
 }
 
 void Doctor::move()

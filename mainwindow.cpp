@@ -64,7 +64,7 @@ void MainWindow::handleTimer()
 			newThing = new Turtle(turtleImage, newX, randY, this);
 		}
 		*/
-		newThing = new Alien(alienImage, newX, randY, this);
+		newThing = new Doctor(doctorImage, newX, randY, this);
 		things.push_back(newThing);
 		scene->addItem(newThing);
 	}

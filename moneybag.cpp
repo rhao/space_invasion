@@ -3,8 +3,10 @@
 
 MoneyBag::MoneyBag( QPixmap *pm, int nx, int ny, MainWindow *w ) : Thing( pm, nx, ny, w )
 {
-	vX = 3;
-	vY = 4;
+	//money bag x velocity is between 2 and 7
+	vX = (double)((rand() % 50))/10 + 2;
+	//money bag y velocity is between 3 and 8
+	vY = (double)((rand() % 50))/10 + 3;
 }
 
 void MoneyBag::move()

@@ -3,7 +3,8 @@
 
 Coin::Coin( QPixmap *pm, int nx, int ny, MainWindow *w) : Thing( pm, nx, ny, w )
 {
-	vX = 3; //keep same as background's v
+	//coin y velocity is either -1 or +1
+	vX = 3;
 	int vRand = rand() % 2;
 	if(vRand == 1)
 	{

@@ -2,25 +2,9 @@
 #include "mainwindow.h"
 
 Alien::Alien( QPixmap *pm, int nx, int ny, MainWindow *w ) : Thing( pm, nx, ny, w )
-{
-/*
-	int vRand = rand() % 5;
-	if(vRand <= 1)
-	{
-		vX = 3;
-	}
-	else if(vRand <= 3)
-	{
-		vX = 4;
-	}
-	else
-	{
-		vX=5;
-	}
-	*/
-	
-	vX = (double)((rand() % 100))/100 + 3;
-	std::cout<<vX<<" ";
+{	
+	//alien x velocity is a random number (to one decimal place) between 2 and 7
+	vX = (double)((rand() % 50))/10 + 2;
 	vY = 0;
 }
 
