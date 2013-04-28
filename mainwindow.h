@@ -177,7 +177,7 @@ private:
 	int invincibleCount;
 	
 	int turtleCount;
-	bool turtleBool;
+	
 	
 	int gameCounter;
 	int gameSpeed;
@@ -195,6 +195,7 @@ public:
 	int turtleHeight;
 	int playerHeight;
 	bool invincible;
+	bool turtleBool;
 
 public slots:
 	void handleTimer();

@@ -5,23 +5,15 @@
  * Performs appropriate actions every time timer is called.
  *
  
- slowly make more items/speed up
- 
- popup is the only thing that pops up first
- OR start screen
+ slowly make more items/speed up/make it smoother (i think it speeds up then slows down..)
  
  game over screen
  
  remove items as they go off screen
  
- 
- segfaults if i double click on start
- 
  grab keyboard x error bad window
  merrick said it seems like an issue that you can't fix with my code, but rather something about 
  qt or the vm
-
- need game over something
  
  * @return nothing
  */
@@ -64,14 +56,19 @@ void MainWindow::checkCollisions(int i)
  
 void MainWindow::handleGameCounter()
 {
-	gameCounter++;
+	if(!turtleBool)
+	{
+		gameCounter++;
+	}
+	
 	if(gameCounter == 500)
 	{
+		std::cout<<"CHANGE\n\n";
 		gameCounter = 0;
 
 		if(gameSpeed <= 1)
 		{
-			//stop changing speed here
+			gameSpeed = 1;
 		}
 		else if(gameSpeed < 5)
 		{
@@ -196,6 +193,7 @@ void MainWindow::handleTimer()
 	
 	if(turtleBool)
 	{
+		timer->setInterval(70);
 		turtleCount++;
 		if(turtleCount == 75)
 		{
@@ -327,7 +325,6 @@ void MainWindow::startGame()
 		
 		
 		this->grabKeyboard();
-		
 	}
 }
 
@@ -335,6 +332,7 @@ void MainWindow::callPopup()
 {
 	view->show();
 	popupView->show();
+	popupView->raise();
 	popupView->grabKeyboard();
 }
 
@@ -346,6 +344,7 @@ void MainWindow::cancelPopup()
 	}
 	userNameLine->setText("");
 	popupView->close();
+	this->grabKeyboard();
 }
 
 /**
@@ -418,7 +417,6 @@ MainWindow::MainWindow(QMainWindow* parent) : QMainWindow(parent)
 	//of our own - called handleTimer - which is in this same MainWindow class
 	timer = new QTimer(this);
 	setTimer();
-	
 	
 	//connects
 	connect(timer, SIGNAL(timeout()), this, SLOT(handleTimer()));
@@ -657,7 +655,7 @@ void MainWindow::createBackground()
 void MainWindow::slowTimer()
 {
 	turtleBool = true;
-	timer->setInterval(gameSpeed * 3);
+	//timer->setInterval(50);
 }
 
 void MainWindow::setTimer()
