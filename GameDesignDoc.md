@@ -58,7 +58,7 @@ Players start the game with three lives. After colliding with the Alien, the pla
     - Game is actually implemented, played, and displayed here. This is under all the previous items. 
     - A picture is shown below.
     
- ![alt text](images/menuscreen.png "Layout")
+ ![alt text](images/menuscreen.png "Menu Screen")
  
  
-  ![alt text](images/gameplay.png "Layout")
+  ![alt text](images/gameplay.png "Game Play")
