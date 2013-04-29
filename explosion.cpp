@@ -38,6 +38,12 @@ int Explosion::getY()
 	return y;
 }
 
+/**
+ * Gets the counter value of the explosion, which helps determine how long the explosion
+ * should exist.
+ *
+ * @return c The counter variable
+ */
 int Explosion::getC()
 {
 	return c;

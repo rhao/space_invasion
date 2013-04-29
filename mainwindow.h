@@ -54,7 +54,6 @@ class MainWindow : public QMainWindow {
 	Q_OBJECT
     
 public:
-	//MainWindow(QWidget *parent = 0);
 	MainWindow(QMainWindow *parent = 0);
 	~MainWindow();
 	void show();
@@ -167,8 +166,6 @@ private:
 	bool popupAlienImage;
 	int popupAlienCount;
 	bool paused;
-	//bool alreadyPlusPopup;
-	//bool alreadyAlienPopup;
 	bool restarting;
 	
 	vector<Thing*> things;
@@ -188,17 +185,29 @@ private:
 	bool gameJustStarted;
 	
 public:
+	/** Maximum y-coordinate of game area */
 	int game_max_y;
+	/** Minimum y-coordinate of game area */
 	int game_min_y;
+	/** Player's score */
 	int score;
+	/** Number of lives remaining */
 	int lives;
+	/** Height of coin image */
 	int coinHeight;
+	/** Height of alien image */
 	int alienHeight;
+	/** Height of doctor image */
 	int doctorHeight;
+	/** Height of money bag image */
 	int moneybagHeight;
+	/** Height of turtle image */
 	int turtleHeight;
+	/** Height of player image */
 	int playerHeight;
+	/** Boolean which determines if player is invincible or not */
 	bool invincible;
+	/** Boolean which determines if turtle was hit */
 	bool turtleBool;
 
 public slots:

@@ -33,7 +33,7 @@ void Player::setY(int y_)
  * Sets the value of the velocity of the player, or the amount to move the player every
  * time move is called.
  *
- * @param o The number of pixels the pl.yer should move each time move is called
+ * @param v_ The number of pixels the player should move each time move is called
  * @return nothing
  */
 void Player::setV(int v_)

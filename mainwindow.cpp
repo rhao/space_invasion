@@ -658,7 +658,6 @@ void MainWindow::decreaseLives()
 /**
  * Increments the number of lives the player has and creates the plus popup item.
  *
- * @param e Mouse event
  * @return nothing
  */
 void MainWindow::increaseLives()
