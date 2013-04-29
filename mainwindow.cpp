@@ -309,6 +309,7 @@ void MainWindow::startGame()
 		userNameLine->setText("");
 		livesLine->setText("3");
 		QString stringScore;
+		score = 0;
 		stringScore = QString::number(score);
 		pointsLine->setText(stringScore);
 		popupView->close();
