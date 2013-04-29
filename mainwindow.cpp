@@ -2,17 +2,9 @@
 #include <cmath>
 
 /**
- * Performs appropriate actions every time timer is called.
+ * Performs appropriate actions every time timer is called. This includes actions
+ * such as moving the items and removing items that have scrolled past the screen.
  *
- 
- grab keyboard x error bad window
- merrick said it seems like an issue that you can't fix with my code, but rather something about 
- qt or the vm
- 
- doxygen
- 
- update design doc
- 
  * @return nothing
  */
 
@@ -59,7 +51,8 @@ void MainWindow::handleTimer()
 }
 
 /**
- * Function is called every time a tile is clicked.
+ * Function is called every time a key is pressed. The up arrow key moves the player up, while
+ * the down arrow key moves the player down.
  *
  * @param e Mouse event
  * @return nothing
@@ -90,6 +83,13 @@ void MainWindow::keyPressEvent(QKeyEvent *e)
 }
 
  
+/**
+ * This functions loops through the items and determines if the thing with the given
+ * index collides with the player.
+ *
+ * @param i The index of the thing to be checked.
+ * @return nothing
+ */
 void MainWindow::checkCollisions(int i)
 {
 	if(invincible)
@@ -130,6 +130,13 @@ void MainWindow::checkCollisions(int i)
 	}
 }
  
+/**
+ * Increments the game counter and checks the value, increasing the speed of the game
+ * by changing the timer interval when necessary. This allows the game to continuously
+ * speed up over time, eventually moving so fast it is impossible to play.
+ *
+ * @return nothing
+ */
 void MainWindow::handleGameCounter()
 {
 	if(!turtleBool)
@@ -161,6 +168,13 @@ void MainWindow::handleGameCounter()
 	}
 } 
 
+/**
+ * This function handles cases when the player collides with an alien, in which case an
+ * explosion popup would occue, or with a doctor, in which case a plus one symbol to represent
+ * gaining a life would pop up.
+ *
+ * @return nothing
+ */
 void MainWindow::handleGamePopups()
 {
 	for(int i = 0; i < (int)pluses.size(); i++)
@@ -184,6 +198,11 @@ void MainWindow::handleGamePopups()
 	}
 }
 
+/**
+ * Function randomly generates a new thing out of the five things with a random y-coordinate.
+ *
+ * @return nothing
+ */
 void MainWindow::generateNewThings()
 {
 	count++;
@@ -214,7 +233,6 @@ void MainWindow::generateNewThings()
 		{
 			newThing = new Turtle(turtleImage, newX, randY, this);
 		}
-		newThing = new Alien(alienImage, newX, randY, this);
 		
 		things.push_back(newThing);
 		scene->addItem(newThing);
@@ -244,7 +262,7 @@ void MainWindow::pauseApp()
 }
 
 /**
- * Sets up the game every time the start button is pressed.
+ * Sets up the game every time the start button is pressed from the popup menu.
  *
  * @return nothing
  */
@@ -256,12 +274,6 @@ void MainWindow::startGame()
 		scene->removeItem(explosions[0]);
 		explosions.pop_front();
 	}
-	/*
-	userName = userNameLine->text();
-	if(userName != "")
-	{	
-	
-	*/
 	QString temp = userNameLine->text();
 	if(temp != "")
 	{
@@ -321,6 +333,14 @@ void MainWindow::startGame()
 	}
 }
 
+/**
+ * When the program is started, a popup appears. The popup contains a place for the user
+ * to enter their name, a start button which begins the game, and a cancel button which
+ * quits the program. The popup forces the user to enter a name before pressing start, or
+ * else nothing happens.
+ *
+ * @return nothing
+ */
 void MainWindow::callPopup()
 {
 	//pausing if popup is called (i.e. start game was pressed)
@@ -337,9 +357,15 @@ void MainWindow::callPopup()
 	popupView->grabKeyboard();
 }
 
+/**
+ * Handles the case in which the user presses cancel on the popup menu. If the game was already
+ * started, the game simply resumes. If the game has not been started, then the cancel button
+ * quits the program.
+ *
+ * @return nothing
+ */
 void MainWindow::cancelPopup()
 {
-	//resume if popup cancelled - MIGHT NOT WORK
 	if(!(timer->isActive()))
 	{
 		timer->start();
@@ -356,15 +382,12 @@ void MainWindow::cancelPopup()
 }
 
 /**
- * Constructor for the MainWindow
+ * Constructor for the MainWindow. Reads in all the images and sets up the connects.
  *
  * @return nothing
  */
-//MainWindow::MainWindow(QWidget* parent) : QWidget(parent)
 MainWindow::MainWindow(QMainWindow* parent) : QMainWindow(parent)
-{
-	//this->setFocusPolicy(Qt::StrongFocus);
-	
+{	
 	scene = new QGraphicsScene();
 	view = new QGraphicsView( scene );
 	layout = new QFormLayout();
@@ -381,9 +404,7 @@ MainWindow::MainWindow(QMainWindow* parent) : QMainWindow(parent)
 	pal.setColor(QPalette::Background, QColor(75, 209, 214, 100));
 	window->setAutoFillBackground(true);
 	window->setPalette(pal);
-	
-	//view->setLayout(layout);
-	//window->setLayout(layout);
+
 	window->setFixedSize(WINDOW_MAX_X-3, game_min_y);
 	
 	view->setAlignment(Qt::AlignLeft | Qt::AlignTop);
@@ -445,15 +466,13 @@ MainWindow::MainWindow(QMainWindow* parent) : QMainWindow(parent)
 	connect(popupCancel, SIGNAL(clicked()), this, SLOT(cancelPopup()));
 	connect(pause, SIGNAL(clicked()), this, SLOT(pauseApp()));
 	
-	//setFocus();
 	view->setFocus();
 	createTitle();
 	callPopup();
-	//std::cout<<QApplication::focusWidget();
 }
 
 /**
- * Displays the MainWindow
+ * Displays the popup menu when the program is first started.
  *
  * @return nothing
  */
@@ -464,6 +483,11 @@ void MainWindow::show()
 	popupView->show();
 }
 
+/**
+ * Initializes all the variables from the .h file to their start state.
+ *
+ * @return nothing
+ */
 void MainWindow::initializeVariables()
 {
 	game_max_y = WINDOW_MAX_Y;
@@ -483,8 +507,6 @@ void MainWindow::initializeVariables()
 	popupImage = false;
 	popupAlienImage = false;
 	popupAlienCount = 0;
-	alreadyPlusPopup = false;
-	alreadyAlienPopup = false;
 	invincible = false;
 	invincibleCount = 0;
 	turtleCount = 0;
@@ -494,6 +516,11 @@ void MainWindow::initializeVariables()
 	restarting = false;
 }
 
+/**
+ * Creates the actual popup menu by adding the buttons and line edit, etc.
+ *
+ * @return nothing
+ */
 void MainWindow::createPopup()
 {
 	popupScene = new QGraphicsScene();
@@ -519,15 +546,17 @@ void MainWindow::createPopup()
 	popupLayout->addItem(h2);
 	popupLayout->addItem(h1);
 			
-	//popupLayout->addRow(userNameLabel, userNameLine);
-	//popupLayout->addRow(popupStart, popupCancel);
-	//popupView->setLayout(popupLayout);
 	popupWindow->setLayout(popupLayout);
 	popupView->setAlignment(Qt::AlignLeft | Qt::AlignTop);
 	popupScene->addWidget(popupWindow);
 	popupView->setWindowTitle( "Start Screen");
 }
 
+/**
+ * Creates the buttons that appear at the top menu part of the game, and adds them to the layout.
+ *
+ * @return nothing
+ */
 void MainWindow::createButtons()
 {
 	startStopLayout = new QHBoxLayout();
@@ -540,6 +569,12 @@ void MainWindow::createButtons()
 	layout->addRow(startStopLayout);
 }
 
+/**
+ * Displays the output, including the user's name, number of lives, and points, at the top
+ * of the game, and adds them to the layout.
+ *
+ * @return nothing
+ */
 void MainWindow::createOutput()
 {
 
@@ -567,6 +602,12 @@ void MainWindow::createOutput()
 
 }
 
+/**
+ * Removes the given Thing from the vector of Things.
+ *
+ * @param t The Thing to be removed from the vector.
+ * @return nothing
+ */
 void MainWindow::removeFromVector(Thing *t)
 {
 	int index = 0;
@@ -581,6 +622,12 @@ void MainWindow::removeFromVector(Thing *t)
 	things.pop_back();
 }
 
+/**
+ * Sets and displays the player's score.
+ *
+ * @param s The number of points the player has.
+ * @return nothing
+ */
 void MainWindow::setScore(int s)
 {
 	score = s;
@@ -589,6 +636,11 @@ void MainWindow::setScore(int s)
 	pointsLine->setText(stringScore);
 }
 
+/**
+ * Decrements the number of lives the player has and creates the explosion.
+ *
+ * @return nothing
+ */
 void MainWindow::decreaseLives()
 {
 	lives--;
@@ -597,17 +649,18 @@ void MainWindow::decreaseLives()
 	livesLine->setText(stringLives);
 	explosion = new Explosion(explosionImage, this);
 	popupAlienImage = true;
-	//if(alreadyAlienPopup)
-	//{
-	//	popupAlienCount = 0;
-	//	scene->removeItem(explosion);
-	//}
 	Explosion *ex = new Explosion(explosionImage, this);
 	explosions.push_back(ex);
 	scene->addItem(ex);
 	
 }
 
+/**
+ * Increments the number of lives the player has and creates the plus popup item.
+ *
+ * @param e Mouse event
+ * @return nothing
+ */
 void MainWindow::increaseLives()
 {
 	lives++;
@@ -620,37 +673,46 @@ void MainWindow::increaseLives()
 	PlusPopup *pl = new PlusPopup(plusImage, this);
 	pluses.push_back(pl);
 	scene->addItem(pl);
-	//if(alreadyPlusPopup)
-	//{
-	//	popupCount = 0;
-	//	scene->removeItem(plus);
-	//}
 }
 
+/**
+ * Returns the x-coordinate of the player.
+ *
+ * @return The x-coordinate of the player.
+ */
 int MainWindow::getPlayerX()
 {
 	return p->getX();
 }
 
+/**
+ * Gets the y-coordinate of the player.
+ *
+ * @return The y-coordinate of the player.
+ */
 int MainWindow::getPlayerY()
 {
 	return p->getY();
 }
 
+/**
+ * When the player loses all lives, the timer is stopped and an endGame object is created to
+ * display the game over screen.
+ *
+ * @return nothing
+ */
 void MainWindow::gameOver()
 {
-/*
-	QErrorMessage errorMessage;
-	errorMessage.showMessage("Game over.");
-	errorMessage.exec();
-	qApp->quit();
-	*/
-	
 	restarting = true;
 	endGame = new EndScreen(userName, score, this);
 	timer->stop();
 }
 
+/**
+ * Creates the start screen for before the game begins. This includes instructions.
+ *
+ * @return nothing
+ */
 void MainWindow::createTitle()
 {
 	*titleBackgroundImage = titleBackgroundImage->scaled(WINDOW_MAX_X + 5, WINDOW_MAX_Y + 5, Qt::IgnoreAspectRatio, Qt::FastTransformation);
@@ -662,6 +724,11 @@ void MainWindow::createTitle()
 
 }
 
+/**
+ * Creates the scrolling background of the game.
+ *
+ * @return nothing
+ */
 void MainWindow::createBackground()
 {
 	
@@ -673,12 +740,23 @@ void MainWindow::createBackground()
 	scene->addItem(bg2);
 }
 
+/**
+ * Function is called when the timer is supposed to be slowed down because the player
+ * collided with a turtle.
+ *
+ * @return nothing
+ */
 void MainWindow::slowTimer()
 {
 	turtleBool = true;
 	//timer->setInterval(50);
 }
 
+/**
+ * Sets the timer interval to the gameSpeed variable, which changes.
+ *
+ * @return nothing
+ */
 void MainWindow::setTimer()
 {
 	timer->setInterval(gameSpeed);

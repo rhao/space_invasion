@@ -167,8 +167,8 @@ private:
 	bool popupAlienImage;
 	int popupAlienCount;
 	bool paused;
-	bool alreadyPlusPopup;
-	bool alreadyAlienPopup;
+	//bool alreadyPlusPopup;
+	//bool alreadyAlienPopup;
 	bool restarting;
 	
 	vector<Thing*> things;

@@ -1,6 +1,15 @@
 #include "doctor.h"
 #include "mainwindow.h"
 
+/**
+ * Constructor for doctor which calls the constructor of Thing as well
+ *
+ * @param pm The pixmap image of the doctor
+ * @param nx The x-coordiate to be assigned
+ * @param ny The y-coordinate to be assigned
+ * @param w A pointer to the main window
+ * @return nothing
+ */
 Doctor::Doctor( QPixmap *pm, int nx, int ny, MainWindow *w ) : Thing( pm, nx, ny, w )
 {
 	//doctor x velocity is between 2 and 4
@@ -17,6 +26,12 @@ Doctor::Doctor( QPixmap *pm, int nx, int ny, MainWindow *w ) : Thing( pm, nx, ny
 	}
 }
 
+/**
+ * Moves the doctor by adjusting the x and y-coordinates by the velocity. Doctors bounce off
+ * both the top and bottom of the screen.
+ *
+ * @return nothing
+ */
 void Doctor::move()
 {
 	int miny = window->game_min_y;
@@ -37,6 +52,12 @@ void Doctor::move()
 	this->setPos(x, y);
 }
 
+/**
+ * Returns true is the doctor is off the screen to the left and should be removed,
+ * false otherwise.
+ *
+ * @return bool True if object is off screen, otherwise false
+ */
 bool Doctor::shouldRemove()
 {
 	if(x < -100)
@@ -46,16 +67,33 @@ bool Doctor::shouldRemove()
 	return false;
 }
 
+/**
+ * This function is called after a player collides with a doctor. The player gains
+ * a life when this occurs.
+ *
+ * @return nothing
+ */
 void Doctor::handleCollision()
 {
 	window->increaseLives();
 }
 
+/**
+ * Returns false because the doctor is not a coin object. This is used to test whether or not
+ * collisions with doctors should be considered when the player is invincible.
+ *
+ * @return false
+ */
 bool Doctor::isACoin()
 {
 	return false;
 }
 
+/**
+ * Destructor
+ *
+ * @return nothing
+ */
 Doctor::~Doctor()
 {
 

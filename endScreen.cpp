@@ -5,6 +5,8 @@
 /**
  * Constructor
  *
+ * @param n The name of the user to be displayed on the game over screen
+ * @param s The score of the player to be displayed on the game over screen
  * @param w Pointer to the mainwindow
  * @return nothing
  */
@@ -78,6 +80,11 @@ EndScreen::EndScreen(QString n, int s, MainWindow *w) : QWidget()
 	
 }
 
+/**
+ * Closes the view. This is used if the player restarts the game.
+ *
+ * @return nothing
+ */
 void EndScreen::close()
 {
 	view->close();

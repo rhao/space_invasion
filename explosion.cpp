@@ -5,6 +5,7 @@
 /**
  * Constructor
  *
+ * @param p The pixmap image of the explosion
  * @param w Pointer to the mainwindow
  * @return nothing
  */
@@ -18,9 +19,9 @@ Explosion::Explosion(QPixmap *p, MainWindow *w) : QGraphicsPixmapItem(*p)
 }
 
 /**
- * Gets the x-coordinate of the tile.
+ * Gets the x-coordinate of the explosion.
  *
- * @return x The x-coordinate of the tile
+ * @return x The x-coordinate of the explosion.
  */
 int Explosion::getX()
 {
@@ -28,9 +29,9 @@ int Explosion::getX()
 }
 
 /**
- * Gets the y-coordinate of the tile.
+ * Gets the y-coordinate of the explosion.
  *
- * @return y The y-coordiante of the tile
+ * @return y The y-coordiante of the explosion.
  */
 int Explosion::getY()
 {
@@ -42,6 +43,13 @@ int Explosion::getC()
 	return c;
 }
 
+/**
+ * Increments the count of the explosion. Explosions only last for a certain amount of
+ * time before they disappear, so the count is a way to keep track of when to 
+ * remove the explosion.
+ *
+ * @return nothing
+ */
 void Explosion::incrementC()
 {
 	c++;

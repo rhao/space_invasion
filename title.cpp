@@ -4,7 +4,9 @@
 /**
  * Constructor
  *
- * @param w Pointer to the mainwindow
+ * @param p The pixmap for the title
+ * @param x_ The x-coordinate of the title
+ * @param y_ The y-coordinate of the title
  * @return nothing
  */
 Title::Title(QPixmap *p, int x_, int y_) : QGraphicsPixmapItem(*p)
@@ -15,9 +17,9 @@ Title::Title(QPixmap *p, int x_, int y_) : QGraphicsPixmapItem(*p)
 }
 
 /**
- * Gets the x-coordinate of the tile.
+ * Gets the x-coordinate of the title.
  *
- * @return x The x-coordinate of the tile
+ * @return x The x-coordinate of the title
  */
 int Title::getX()
 {
@@ -25,9 +27,9 @@ int Title::getX()
 }
 
 /**
- * Gets the y-coordinate of the tile.
+ * Gets the y-coordinate of the title.
  *
- * @return y The y-coordiante of the tile
+ * @return y The y-coordiante of the title
  */
 int Title::getY()
 {
