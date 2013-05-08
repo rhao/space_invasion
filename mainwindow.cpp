@@ -855,10 +855,10 @@ void MainWindow::gameOver()
 	
 	//reading through file and getting previous high scores and clear file
 	fin.open(fileName.c_str());
-	if(fin.fail())
-	{
+	//if(fin.fail())
+	//{
 	
-	}
+	//}
 	string testing;
 	string oldName;
 	int oldScore;
@@ -866,16 +866,18 @@ void MainWindow::gameOver()
 	int index;
 	
 	//reading in and throwing away "High Scores:\n\n"
-	getline(fin, testing, '\n');
 	//this is an old file, add all old high scores to queues then clear file
-	if(!fin.eof())
+	//fin>>testing;
+	getline(fin, testing, '\n');
+	//if(!fin.eof())
+	if(getline(fin, testing))
 	{
+		//getline(fin, testing, '\n');
 		fin>>oldName;
 		while(!fin.eof())
+		//while(getline(fin, testing))
 		{
-			std::cout<<oldName<<"<<NAME!\n";
 			fin>>oldScore;
-			std::cout<<oldScore<<"<<SCORE!\n";
 			scores1.push(oldScore);
 			
 			namesVector.push_back(oldName);
@@ -910,8 +912,8 @@ void MainWindow::gameOver()
 			}
 		}
 		fout<<namesVector[index];
-		fout<<": ";
-		fout<<scores1.top();
+		fout<<" ";
+		fout<<scoresVector[index];
 		fout<<"\n";
 		scores1.pop();
 	}
