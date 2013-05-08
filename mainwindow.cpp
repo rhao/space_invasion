@@ -12,7 +12,7 @@ void MainWindow::handleTimer()
 {
 	handleGameCounter();
 	levelCount++;
-	if(levelCount == 100)
+	if(levelCount == levelCompare)
 	{
 		level++;
 		if(level == 2)
@@ -24,6 +24,9 @@ void MainWindow::handleTimer()
 			createBackground();
 			levelCount = 0;
 			level2PopupExists = true;
+			gameSpeed = 15;
+			timer->setInterval(gameSpeed);
+			levelCompare += 200;
 		}
 		else if(level == 3)
 		{
@@ -34,6 +37,8 @@ void MainWindow::handleTimer()
 			createBackground();
 			bg->setPixmap(*bgImage3);
 			level3PopupExists = true;
+			gameSpeed = 5;
+			timer->setInterval(gameSpeed);
 		}
 	}
 	
@@ -580,6 +585,7 @@ void MainWindow::initializeVariables()
 	levelCount = 0;
 	level2PopupExists = false;
 	level3PopupExists = false;
+	levelCompare = 300;
 }
 
 /**

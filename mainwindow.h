@@ -206,6 +206,7 @@ private:
 	
 	int level;
 	int levelCount;
+	int levelCompare;
 	
 	
 	
