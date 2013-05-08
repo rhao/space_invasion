@@ -1,6 +1,9 @@
 #include "mainwindow.h"
 #include <cmath>
 
+
+//BECAUSE I READ IN NAME WITH :, IT PRINTS IT WITH :: SINCE IT ADDS ANOTHER ONE!!! ALSKDFJLKSD
+
 /**
  * Performs appropriate actions every time timer is called. This includes actions
  * such as moving the items and removing items that have scrolled past the screen.
@@ -848,7 +851,7 @@ void MainWindow::gameOver()
 	
 	
 	
-	/*
+	
 	
 	//reading through file and getting previous high scores and clear file
 	fin.open(fileName.c_str());
@@ -862,28 +865,33 @@ void MainWindow::gameOver()
 	int currScore;
 	int index;
 	
-	//getline(fin, testing, '\"');
+	//reading in and throwing away "High Scores:\n\n"
+	getline(fin, testing, '\n');
 	//this is an old file, add all old high scores to queues then clear file
 	if(!fin.eof())
 	{
-		//reading in and throwing away "High Scores:\n\n"
-		getline(fin, testing, '\n');
+		fin>>oldName;
 		while(!fin.eof())
 		{
-			fin>>oldName;
+			std::cout<<oldName<<"<<NAME!\n";
 			fin>>oldScore;
+			std::cout<<oldScore<<"<<SCORE!\n";
 			scores1.push(oldScore);
+			
 			namesVector.push_back(oldName);
 			scoresVector.push_back(oldScore);
+			fin>>oldName;
+			
 		}
 	}
-	
+
 	namesVector.push_back(userName.toStdString());
 	scoresVector.push_back(score);
 	scores1.push(score);
 	fin.close();
 	
 	//writing new high scores to file
+	
 	fout.open(fileName.c_str());
 	
 	if(fout.fail())
@@ -908,8 +916,6 @@ void MainWindow::gameOver()
 		scores1.pop();
 	}
 	fout.close();
-	
-	*/
 	
 	
 	
