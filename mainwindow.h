@@ -29,6 +29,9 @@
 #include <vector>
 #include <queue>
 #include <QErrorMessage>
+#include <fstream>
+#include <iostream>
+#include <string>
 #include "coin.h"
 #include "thing.h"
 #include "player.h"
@@ -128,6 +131,8 @@ private:
 	Background *bg;
 	Background *bg2;
 	QPixmap *bgImage;
+	QPixmap *bgImage2;
+	QPixmap *bgImage3;
 	
 	Player *p;
 	QPixmap *playerImage;
@@ -159,6 +164,12 @@ private:
 	QPixmap *plusImage;
 	PlusPopup *plus;
 	Explosion *explosion;
+	QPixmap *level2Image;
+	QPixmap *level3Image;
+	PlusPopup *level2Popup;
+	PlusPopup *level3Popup;
+	bool level2PopupExists;
+	bool level3PopupExists;
 	
 	int count;
 	int popupCount;
@@ -183,6 +194,20 @@ private:
 	int gameCounter;
 	int gameSpeed;
 	bool gameJustStarted;
+	
+	
+	ifstream fin;
+	ofstream fout;
+	fstream f;
+	string fileName;
+	priority_queue<int> scores1;
+	vector<string> namesVector;
+	vector<int> scoresVector;
+	
+	int level;
+	int levelCount;
+	
+	
 	
 public:
 	/** Maximum y-coordinate of game area */

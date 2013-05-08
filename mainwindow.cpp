@@ -11,6 +11,31 @@
 void MainWindow::handleTimer()
 {
 	handleGameCounter();
+	levelCount++;
+	if(levelCount == 100)
+	{
+		level++;
+		if(level == 2)
+		{
+			level2Popup = new PlusPopup(level2Image, this);
+			scene->addItem(level2Popup);
+			scene->removeItem(bg);
+			scene->removeItem(bg2);
+			createBackground();
+			levelCount = 0;
+			level2PopupExists = true;
+		}
+		else if(level == 3)
+		{
+			level3Popup = new PlusPopup(level3Image, this);
+			scene->addItem(level3Popup);
+			scene->removeItem(bg);
+			scene->removeItem(bg2);
+			createBackground();
+			bg->setPixmap(*bgImage3);
+			level3PopupExists = true;
+		}
+	}
 	
 	bg->scroll(0, WINDOW_MAX_X);
 	bg2->scroll(0, WINDOW_MAX_X);
@@ -148,6 +173,7 @@ void MainWindow::handleGameCounter()
 	{
 		gameCounter = 0;
 
+		/**
 		if(gameSpeed <= 1)
 		{
 			gameSpeed = 1;
@@ -164,6 +190,7 @@ void MainWindow::handleGameCounter()
 		{
 			gameSpeed -= 10;
 		}
+		*/
 		timer->setInterval(gameSpeed);
 	}
 } 
@@ -195,6 +222,30 @@ void MainWindow::handleGamePopups()
 	{
 		scene->removeItem(explosions[0]);
 		explosions.pop_front();
+	}
+	if(level2PopupExists)
+	{
+		if(level2Popup->getC() == 30)
+		{
+			scene->removeItem(level2Popup);
+			level2PopupExists = false;
+		}
+		else
+		{
+			level2Popup->incrementC();
+		}
+	}
+	if(level3PopupExists)
+	{
+		if(level3Popup->getC() == 30)
+		{
+			scene->removeItem(level3Popup);
+			level3PopupExists = false;
+		}
+		else
+		{
+			level3Popup->incrementC();
+		}
 	}
 }
 
@@ -314,6 +365,7 @@ void MainWindow::startGame()
 		pointsLine->setText(stringScore);
 		popupView->close();
 		
+		level = 1;
 		createBackground();
 		p = new Player(playerImage, this);
 		
@@ -442,6 +494,12 @@ MainWindow::MainWindow(QMainWindow* parent) : QMainWindow(parent)
 	plusImage = new QPixmap("images/plus.png");
 	*plusImage = plusImage->scaledToHeight(200);
 	
+	level2Image = new QPixmap("images/level2.png");
+	*level2Image = level2Image->scaledToHeight(100);
+	
+	level3Image = new QPixmap("images/level3.png");
+	*level3Image = level3Image->scaledToHeight(100);
+	
 	playerImage = new QPixmap("images/astronautb.png");
 	*playerImage = playerImage->scaledToHeight(playerHeight);
 	playerImageBig = new QPixmap("images/astronautb.png");
@@ -450,6 +508,8 @@ MainWindow::MainWindow(QMainWindow* parent) : QMainWindow(parent)
 	titleBackgroundImage = new QPixmap("images/background.png");
 	
 	bgImage = new QPixmap("images/stars.jpg");
+	bgImage2 = new QPixmap("images/stars2.png");
+	bgImage3 = new QPixmap("images/stars3.jpg");
 	
 	title1Image = new QPixmap("images/title2.png");
 
@@ -515,6 +575,11 @@ void MainWindow::initializeVariables()
 	gameCounter = 0;
 	gameSpeed = 35;
 	restarting = false;
+	fileName = "highScores.txt";
+	level = 1;
+	levelCount = 0;
+	level2PopupExists = false;
+	level3PopupExists = false;
 }
 
 /**
@@ -706,6 +771,185 @@ void MainWindow::gameOver()
 	restarting = true;
 	endGame = new EndScreen(userName, score, this);
 	timer->stop();
+	
+	/*
+	//reading through file and getting previous high scores and clear file
+	fin.open(fileName.c_str());
+	if(fin.fail())
+	{
+	
+	}
+	string testing;
+	string oldName;
+	int oldScore;
+	//getline(fin, testing, '\"');
+	//this is an old file, add all old high scores to queues then clear file
+	if(!fin.eof())
+	{
+		//reading in and throwing away "High Scores:\n\n"
+		getline(fin, testing, '\n');
+		while(!fin.eof())
+		{
+			fin>>oldName;
+			fin>>oldScore;
+			names1.push(oldName);
+			scores1.push(oldScore);
+			//std::cout<<oldName<<"\n\n";
+			//std::cout<<oldScore;
+		}
+		//fin.clear();
+	}
+	
+	names1.push(userName.toStdString());
+	scores1.push(score);
+	fin.close();
+	
+	//writing new high scores to file
+	fout.open(fileName.c_str());
+	
+	if(fout.fail())
+	{	
+	}
+	fout<<"High Scores:\n\n";
+	
+	while(!names1.empty())
+	{
+		fout<<names1.top();
+		fout<<": ";
+		fout<<scores1.top();
+		fout<<"\n";
+		names2.push(names1.top());
+		names1.pop();
+		scores2.push(scores1.top());
+		scores1.pop();
+	}
+	//putting names and scores back onto priority queues 1 and emptying queues 2
+	while(!names2.empty())
+	{
+		names1.push(names2.top());
+		names2.pop();
+		scores1.push(scores2.top());
+		scores2.pop();
+	}
+	fout.close();
+	*/
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	/*
+	
+	//reading through file and getting previous high scores and clear file
+	fin.open(fileName.c_str());
+	if(fin.fail())
+	{
+	
+	}
+	string testing;
+	string oldName;
+	int oldScore;
+	int currScore;
+	int index;
+	
+	//getline(fin, testing, '\"');
+	//this is an old file, add all old high scores to queues then clear file
+	if(!fin.eof())
+	{
+		//reading in and throwing away "High Scores:\n\n"
+		getline(fin, testing, '\n');
+		while(!fin.eof())
+		{
+			fin>>oldName;
+			fin>>oldScore;
+			scores1.push(oldScore);
+			namesVector.push_back(oldName);
+			scoresVector.push_back(oldScore);
+		}
+	}
+	
+	namesVector.push_back(userName.toStdString());
+	scoresVector.push_back(score);
+	scores1.push(score);
+	fin.close();
+	
+	//writing new high scores to file
+	fout.open(fileName.c_str());
+	
+	if(fout.fail())
+	{	
+	}
+	fout<<"High Scores:\n\n";
+	
+	while(!scores1.empty())
+	{
+		currScore = scores1.top();
+		for(int i = 0; i < scoresVector.size(); i++)
+		{
+			if(scoresVector[i] == currScore)
+			{
+				index = i;	
+			}
+		}
+		fout<<namesVector[index];
+		fout<<": ";
+		fout<<scores1.top();
+		fout<<"\n";
+		scores1.pop();
+	}
+	fout.close();
+	
+	*/
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	/*
+	names1.push(userName.toStdString());
+	scores1.push(score);
+	std::cout<<names1.top()<<"\n\n";
+	
+	//writing score to file
+	fout.open(fileName.c_str());
+	if(fout.fail())
+	{	
+	}
+	fout<<"High Scores:\n\n";
+	while(!names1.empty())
+	{
+		fout<<names1.top();
+		fout<<": ";
+		fout<<scores1.top();
+		fout<<"\n";
+		names2.push(names1.top());
+		names1.pop();
+		scores2.push(scores1.top());
+		scores1.pop();
+	}
+	//putting names and scores back onto priority queues 1 and emptying queues 2
+	while(!names2.empty())
+	{
+		names1.push(names2.top());
+		names2.pop();
+		scores1.push(scores2.top());
+		scores2.pop();
+	}
+	*/
+	
 }
 
 /**
@@ -731,13 +975,40 @@ void MainWindow::createTitle()
  */
 void MainWindow::createBackground()
 {
+	if(level == 1)
+	{
+		*bgImage = bgImage->scaled(WINDOW_MAX_X + 3, game_max_y - game_min_y, Qt::IgnoreAspectRatio, Qt::FastTransformation);
+		bg = new Background(bgImage, 0, game_min_y);
+		bg->setZValue(-1);
+		scene->addItem(bg);
 	
-	*bgImage = bgImage->scaled(WINDOW_MAX_X + 3, game_max_y - game_min_y, Qt::IgnoreAspectRatio, Qt::FastTransformation);
-	bg = new Background(bgImage, 0, game_min_y);
-	scene->addItem(bg);
+		bg2 = new Background(bgImage, WINDOW_MAX_X, game_min_y);
+		bg2->setZValue(-1);
+		scene->addItem(bg2);
+	}
+	else if(level == 2)
+	{
+		*bgImage2 = bgImage2->scaled(WINDOW_MAX_X + 3, game_max_y - game_min_y, Qt::IgnoreAspectRatio, Qt::FastTransformation);
+		bg = new Background(bgImage2, 0, game_min_y);
+		bg->setZValue(-1);
+		scene->addItem(bg);
 	
-	bg2 = new Background(bgImage, WINDOW_MAX_X, game_min_y);
-	scene->addItem(bg2);
+		bg2 = new Background(bgImage2, WINDOW_MAX_X, game_min_y);
+		bg2->setZValue(-1);
+		scene->addItem(bg2);
+	}
+	else
+	{
+		*bgImage3 = bgImage3->scaled(WINDOW_MAX_X + 3, game_max_y - game_min_y, Qt::IgnoreAspectRatio, Qt::FastTransformation);
+		bg = new Background(bgImage3, 0, game_min_y);
+		bg->setZValue(-1);
+		scene->addItem(bg);
+	
+		bg2 = new Background(bgImage3, WINDOW_MAX_X, game_min_y);
+		bg2->setZValue(-1);
+		scene->addItem(bg2);
+	}
+	
 }
 
 /**
